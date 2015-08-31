@@ -1983,6 +1983,27 @@
    <field name='TradingSessionSubID' required='N' />
    <field name='SubscriptionRequestType' required='N' />
   </message>
+  <message name='CurrencyListRequest' msgcat='app' msgtype='U1020'>
+   <field name='CurrencyReqID' required='Y' />
+   <field name='CurrencyListRequestType' required='Y' />
+   <field name='Text' required='N' />
+   <field name='EncodedTextLen' required='N' />
+   <field name='EncodedText' required='N' />
+  </message>
+  <message name='CurrencyList' msgcat='app' msgtype='U1021'>
+   <field name='CurrencyReqID' required='Y' />
+   <field name='CurrencyResponseID' required='Y' />
+   <field name='CurrencyRequestResult' required='Y' />
+   <field name='TotNoRelatedSym' required='N' />
+   <group name='NoRelatedSym' required='N'>
+    <field name='Currency' required='N' />
+    <field name='CurrencyPrecision' required='N' />
+    <field name='CurrencySortOrder' required='N' />
+    <field name='Text' required='N' />
+    <field name='EncodedTextLen' required='N' />
+    <field name='EncodedText' required='N' />
+   </group>
+  </message>
   <message name='SecurityListRequest' msgcat='app' msgtype='x'>
    <field name='SecurityReqID' required='Y' />
    <field name='SecurityListRequestType' required='Y' />
@@ -2017,6 +2038,7 @@
      <component name='UnderlyingInstrument' required='N' />
     </group>
     <field name='Currency' required='N' />
+    <field name='CurrencyPrecision' required='N' />
     <field name='CurrencySortOrder' required='N' />
     <component name='Stipulations' required='N' />
     <group name='NoLegs' required='N'>
@@ -2045,12 +2067,14 @@
     <field name='EncodedTextLen' required='N' />
     <field name='EncodedText' required='N' />
     <field name='SettlCurrency' required='N' />
+    <field name='SettlCurrencyPrecision' required='N' />
     <field name='SettlCurrencySortOrder' required='N' />
     <field name='ColorRef' required='N' />
     <field name='Commission' required='N' />
     <field name='LimitsCommission' required='N' />
     <field name='CommType' required='N' />
     <field name='CommChargeType' required='N' />
+    <field name='CommChargeMethod' required='N' />
     <field name='SwapSizeShort' required='N' />
     <field name='SwapSizeLong' required='N' />
     <field name='TradeEnabled' required='N' />
@@ -3882,6 +3906,7 @@
     <field name='TransactTime' required='N' />
     <component name='AccTr' required='N' />
     <field name='OrderID' required='N' />
+    <field name='ActionID' required='N' />
     <field name='ClOrdID' required='N' />
     <field name='OrderQty' required='N' />
     <field name='OrderLeavesQty' required='N' />
@@ -3903,6 +3928,8 @@
     <field name='PosClosePrice' required='N' />
     <field name='PosClosed' required='N' />
     <field name='PosModified' required='N' />
+    <field name='PosRemainingSide' required='N' />
+    <field name='PosRemainingPrice' required='N' />
     <component name='CommissionData' required='N' />
     <component name='AgentCommissionData' required='N' />
     <field name='Swap' required='N' /> 
@@ -4546,6 +4573,8 @@
    <value enum='U1017' description='TRADETRANSACTIONREPORT' />
    <value enum='U1018' description='COMPONENTSINFOREQUEST' />
    <value enum='U1019' description='COMPONENTSINFOREPORT' />
+   <value enum='U1020' description='CURRENCYLISTREQUEST' />
+   <value enum='U1021' description='CURRENCYLIST' />
   </field>
   <field number='36' name='NewSeqNo' type='SEQNUM' />
   <field number='37' name='OrderID' type='STRING' />
@@ -7621,8 +7650,8 @@
   <field number='10122' name='CloseConversionRate' type='AMT' />
   <field number='10123' name='LimitsCommission' type='AMT' />
   <field number='10124' name='CommChargeType' type='INT'>
-    <value enum='0' description='ONEWAY' />
-    <value enum='1' description='ROUNDTURN' />
+    <value enum='0' description='PERTRADE' />
+    <value enum='1' description='PERLOT' />
   </field>
   <field number='10125' name='SwapSizeShort' type='AMT' />
   <field number='10126' name='SwapSizeLong' type='AMT' />
@@ -7641,5 +7670,26 @@
   <field number='10134' name='MarginFactorFractional' type='FLOAT' />
   <field number='10135' name='CurrencySortOrder' type='INT' />
   <field number='10136' name='SettlCurrencySortOrder' type='INT' />
+  <field number='10137' name='CurrencyPrecision' type='INT' />
+  <field number='10138' name='SettlCurrencyPrecision' type='INT' />
+  <field number='10139' name='CurrencyReqID' type='STRING' />
+  <field number='10140' name='CurrencyListRequestType' type='INT'>
+   <value enum='0' description='ALLCURRENCIES' />
+  </field>
+  <field number='10141' name='CurrencyResponseID' type='STRING' />
+  <field number='10142' name='CurrencyRequestResult' type='INT'>
+   <value enum='0' description='VALIDREQ' />
+   <value enum='1' description='INVALIDREQ' />
+  </field>
+  <field number='10143' name='CommChargeMethod' type='INT'>
+    <value enum='0' description='ONEWAY' />
+    <value enum='1' description='ROUNDTURN' />
+  </field>
+  <field number='10144' name='ActionID' type='INT' />
+  <field number='10145' name='PosRemainingPrice' type='PRICE' />
+  <field number='10146' name='PosRemainingSide' type='CHAR'>
+   <value enum='1' description='BUY' />
+   <value enum='2' description='SELL' />
+  </field>
  </fields>
 </fix>

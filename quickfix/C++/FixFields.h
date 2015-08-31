@@ -1120,6 +1120,16 @@ namespace FIX
   DEFINE_FLOAT(MarginFactorFractional);
   DEFINE_INT(CurrencySortOrder);
   DEFINE_INT(SettlCurrencySortOrder);
+  DEFINE_INT(CurrencyPrecision);
+  DEFINE_INT(SettlCurrencyPrecision);
+  DEFINE_STRING(CurrencyReqID);
+  DEFINE_INT(CurrencyListRequestType);
+  DEFINE_STRING(CurrencyResponseID);
+  DEFINE_INT(CurrencyRequestResult);
+  DEFINE_INT(CommChargeMethod);
+  DEFINE_INT(ActionID);
+  DEFINE_PRICE(PosRemainingPrice);
+  DEFINE_CHAR(PosRemainingSide);
   DEFINE_NUMINGROUP(NoStrategyParameters);
   DEFINE_STRING(StrategyParameterName);
   DEFINE_INT(StrategyParameterType);

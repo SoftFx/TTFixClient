@@ -1118,6 +1118,16 @@ namespace FIX
     const int MarginFactorFractional = 10134;
     const int CurrencySortOrder = 10135;
     const int SettlCurrencySortOrder = 10136;
+    const int CurrencyPrecision = 10137;
+    const int SettlCurrencyPrecision = 10138;
+    const int CurrencyReqID = 10139;
+    const int CurrencyListRequestType = 10140;
+    const int CurrencyResponseID = 10141;
+    const int CurrencyRequestResult = 10142;
+    const int CommChargeMethod = 10143;
+    const int ActionID = 10144;
+    const int PosRemainingPrice = 10145;
+    const int PosRemainingSide = 10146;
     const int NoStrategyParameters = 957;
     const int StrategyParameterName = 958;
     const int StrategyParameterType = 959;

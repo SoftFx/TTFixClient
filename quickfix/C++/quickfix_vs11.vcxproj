@@ -229,11 +229,15 @@
     <ClInclude Include="fix44\ConfirmationRequest.h" />
     <ClInclude Include="fix44\CrossOrderCancelReplaceRequest.h" />
     <ClInclude Include="fix44\CrossOrderCancelRequest.h" />
+    <ClInclude Include="fix44\CurrencyList.h" />
+    <ClInclude Include="fix44\CurrencyListRequest.h" />
     <ClInclude Include="fix44\DerivativeSecurityList.h" />
     <ClInclude Include="fix44\DerivativeSecurityListRequest.h" />
     <ClInclude Include="fix44\DontKnowTrade.h" />
     <ClInclude Include="fix44\Email.h" />
     <ClInclude Include="fix44\ExecutionReport.h" />
+    <ClInclude Include="fix44\FileClose.h" />
+    <ClInclude Include="fix44\FileOperationAck.h" />
     <ClInclude Include="fix44\Heartbeat.h" />
     <ClInclude Include="fix44\IOI.h" />
     <ClInclude Include="fix44\ListCancelRequest.h" />
@@ -266,10 +270,12 @@
     <ClInclude Include="fix44\OrderMassCancelRequest.h" />
     <ClInclude Include="fix44\OrderMassStatusRequest.h" />
     <ClInclude Include="fix44\OrderStatusRequest.h" />
+    <ClInclude Include="fix44\OrderTimeout.h" />
     <ClInclude Include="fix44\PositionMaintenanceReport.h" />
     <ClInclude Include="fix44\PositionMaintenanceRequest.h" />
     <ClInclude Include="fix44\PositionReport.h" />
     <ClInclude Include="fix44\Quote.h" />
+    <ClInclude Include="fix44\QuoteAcknowledgement.h" />
     <ClInclude Include="fix44\QuoteCancel.h" />
     <ClInclude Include="fix44\QuoteRequest.h" />
     <ClInclude Include="fix44\QuoteRequestReject.h" />
@@ -299,6 +305,7 @@
     <ClInclude Include="fix44\TradeCaptureReportAck.h" />
     <ClInclude Include="fix44\TradeCaptureReportRequest.h" />
     <ClInclude Include="fix44\TradeCaptureReportRequestAck.h" />
+    <ClInclude Include="fix44\TradeTransactionReport.h" />
     <ClInclude Include="fix44\TradingSessionStatus.h" />
     <ClInclude Include="fix44\TradingSessionStatusRequest.h" />
     <ClInclude Include="fix44\UserRequest.h" />

@@ -33,6 +33,7 @@ namespace FIX44
     FIELD_SET(*this, FIX::AccTrAmount);
     FIELD_SET(*this, FIX::AccTrCurry);
     FIELD_SET(*this, FIX::OrderID);
+    FIELD_SET(*this, FIX::ActionID);
     FIELD_SET(*this, FIX::ClOrdID);
     FIELD_SET(*this, FIX::OrderQty);
     FIELD_SET(*this, FIX::OrderLeavesQty);
@@ -54,6 +55,8 @@ namespace FIX44
     FIELD_SET(*this, FIX::PosClosePrice);
     FIELD_SET(*this, FIX::PosClosed);
     FIELD_SET(*this, FIX::PosModified);
+    FIELD_SET(*this, FIX::PosRemainingSide);
+    FIELD_SET(*this, FIX::PosRemainingPrice);
     FIELD_SET(*this, FIX::Commission);
     FIELD_SET(*this, FIX::CommType);
     FIELD_SET(*this, FIX::CommCurrency);

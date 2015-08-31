@@ -2001,6 +2001,27 @@
     <ClInclude Include="PUGIXML_DOMDocument.h">
       <Filter>Headers</Filter>
     </ClInclude>
+    <ClInclude Include="fix44\CurrencyList.h">
+      <Filter>Message\Headers\fix44</Filter>
+    </ClInclude>
+    <ClInclude Include="fix44\CurrencyListRequest.h">
+      <Filter>Message\Headers\fix44</Filter>
+    </ClInclude>
+    <ClInclude Include="fix44\FileClose.h">
+      <Filter>Message\Headers\fix44</Filter>
+    </ClInclude>
+    <ClInclude Include="fix44\FileOperationAck.h">
+      <Filter>Message\Headers\fix44</Filter>
+    </ClInclude>
+    <ClInclude Include="fix44\OrderTimeout.h">
+      <Filter>Message\Headers\fix44</Filter>
+    </ClInclude>
+    <ClInclude Include="fix44\QuoteAcknowledgement.h">
+      <Filter>Message\Headers\fix44</Filter>
+    </ClInclude>
+    <ClInclude Include="fix44\TradeTransactionReport.h">
+      <Filter>Message\Headers\fix44</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Field">

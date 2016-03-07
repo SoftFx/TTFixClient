@@ -1100,7 +1100,6 @@ namespace FIX
   DEFINE_AMT(AgentCommission);
   DEFINE_CHAR(AgentCommType);
   DEFINE_CURRENCY(AgentCommCurrency);
-  DEFINE_CHAR(AccountingSystemType);
   DEFINE_NUMINGROUP(NoAssets);
   DEFINE_AMT(AssetBalance);
   DEFINE_AMT(AssetTradeAmt);
@@ -1130,6 +1129,9 @@ namespace FIX
   DEFINE_INT(ActionID);
   DEFINE_PRICE(PosRemainingPrice);
   DEFINE_CHAR(PosRemainingSide);
+  DEFINE_UTCTIMESTAMP(RegistDate);
+  DEFINE_STRING(PosByID);
+  DEFINE_CHAR(ParentOrderType);
   DEFINE_NUMINGROUP(NoStrategyParameters);
   DEFINE_STRING(StrategyParameterName);
   DEFINE_INT(StrategyParameterType);

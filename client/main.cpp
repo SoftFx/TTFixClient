@@ -49,7 +49,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		FIX::SessionID sessionId("FIX.4.4", std::string("CLIENT_") + CreateGUID(), "EXECUTOR");
 
 		FIX::Dictionary sessionSettings;
-		sessionSettings.setString("SocketConnectHost", "tpdemo.fxopen.com");
+		sessionSettings.setString("SocketConnectHost", "ttdemo.soft-fx.com");
 		sessionSettings.setString("SocketConnectPort", "5001");
 
 		FIX::SessionSettings settings;

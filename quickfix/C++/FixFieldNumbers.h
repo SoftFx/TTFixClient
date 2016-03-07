@@ -1098,7 +1098,6 @@ namespace FIX
     const int AgentCommission = 10113;
     const int AgentCommType = 10114;
     const int AgentCommCurrency = 10115;
-    const int AccountingSystemType = 10116;
     const int NoAssets = 10117;
     const int AssetBalance = 10118;
     const int AssetTradeAmt = 10119;
@@ -1128,6 +1127,9 @@ namespace FIX
     const int ActionID = 10144;
     const int PosRemainingPrice = 10145;
     const int PosRemainingSide = 10146;
+    const int RegistDate = 10147;
+    const int PosByID = 10148;
+    const int ParentOrderType = 10149;
     const int NoStrategyParameters = 957;
     const int StrategyParameterName = 958;
     const int StrategyParameterType = 959;

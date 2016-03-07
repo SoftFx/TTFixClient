@@ -3816,13 +3816,15 @@
     <field name='Currency' required='Y' />
     <field name='Account' required='Y' />
     <field name='AccountingType' required='N' />
-    <field name='AccountingSystemType' required='N' />
     <field name='AccMarginCallLevel' required='N' />
     <field name='AccStopOutLevel' required='N' />
     <field name='AccountValidFlag' required='N' />
     <field name='AccountBlockedFlag' required='N' />
     <field name='InvestorLoginFlag' required='N' />
     <field name='AccountName' required='N' />
+    <field name='RegistEmail' required='N' />
+    <field name='RegistDate' required='N' />
+    <component name='Comment' required='N' />
     <component name='Assets' required='N' />
   </message>
   <message name='ClosePositionRequest' msgcat='app' msgtype='U1008'>
@@ -3918,6 +3920,7 @@
     <field name='OrdCreated' required='N' />
     <field name='OrdModified' required='N' />
     <field name='PosID' required='N' />
+    <field name='PosByID' required='N' />
     <field name='PosOpened' required='N' />
     <field name='PosOpenReqPrice' required='N' />
     <field name='PosOpenPrice' required='N' />
@@ -3943,8 +3946,8 @@
     <field name='LastPx' required='N' />
     <field name='OpenConversionRate' required='N' />
     <field name='CloseConversionRate' required='N' />
-  <field name='ParentOrderID' required='N' />
-    
+    <field name='ParentOrderID' required='N' />
+    <field name='ParentOrderType' required='N' />
   </message>
   <message name='ComponentsInfoRequest' msgcat='app' msgtype='U1018'>
     <field name='ClientQuoteHistoryVersion' required='N' />
@@ -4594,6 +4597,7 @@
    <value enum='C' description='EXPIRED' />
    <value enum='D' description='ACCEPTBIDDING' />
    <value enum='E' description='PENDINGREP' />
+   <value enum='F' description='PENDINGCLOSE' />
   </field>
   <field number='40' name='OrdType' type='CHAR'>
    <value enum='1' description='MARKET' />
@@ -4960,6 +4964,7 @@
    <value enum='G' description='TRADECORRECT' />
    <value enum='H' description='TRADECANCEL' />
    <value enum='I' description='ORDERSTATUS' />
+   <value enum='J' description='PENDINGCLOSE' />
   </field>
   <field number='151' name='LeavesQty' type='QTY' />
   <field number='152' name='CashOrderQty' type='QTY' />
@@ -7542,6 +7547,8 @@
     <value enum='4' description='TakeProfitAct' />
     <value enum='5' description='DealerDecision' />
     <value enum='6' description='Rollover' />
+    <value enum='7' description='DeleteAccount' />
+    <value enum='8' description='Expired' />
   </field>
   <field number='10080' name='OrderLeavesQty' type='QTY' />
   <field number='10081' name='OrderPrice' type='PRICE' />
@@ -7556,6 +7563,8 @@
   <field number='10090' name='PosLeavesQty' type='QTY' />
   <field number='10091' name='PosCloseReqPrice' type='PRICE' />
   <field number='10092' name='LogoutReason' type='INT'>
+    <value enum='-2' description='TIMEOUT' />
+    <value enum='-1' description='NETWORK_ERROR' />
     <value enum='0' description='CLIENT_LOGOUT' />
     <value enum='1' description='INVALID_CREDS' />
     <value enum='2' description='BLOCKED_LOGIN' />
@@ -7638,10 +7647,6 @@
    <value enum='6' description='PERBOND' />
   </field>
   <field number='10115' name='AgentCommCurrency' type='CURRENCY' />
-  <field number='10116' name='AccountingSystemType' type='CHAR'>
-    <value enum='N' description='NONE' />
-    <value enum='O' description='OneClickTrading' />
-  </field>
   <field number='10117' name='NoAssets' type='NUMINGROUP' />
   <field number='10118' name='AssetBalance' type='AMT' />
   <field number='10119' name='AssetTradeAmt' type='AMT' />
@@ -7691,5 +7696,12 @@
    <value enum='1' description='BUY' />
    <value enum='2' description='SELL' />
   </field>
+  <field number='10147' name='RegistDate' type='UTCTIMESTAMP' />
+  <field number='10148' name='PosByID' type='STRING' />
+  <field number='10149' name='ParentOrderType' type='CHAR'>
+    <value enum='1' description='MARKET' />
+    <value enum='2' description='LIMIT' />
+    <value enum='3' description='STOP' />
+   </field>
  </fields>
 </fix>

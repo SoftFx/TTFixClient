@@ -61,9 +61,9 @@ void MyApplication::toAdmin( FIX::Message& message, const FIX::SessionID& )
 {
 	if (FIX::MsgType_Logon == message.getHeader().getField(FIX::FIELD::MsgType))
 	{
-		message.setField(FIX::Username("100006"));
-		message.setField(FIX::Password("rQTRdKZew8Gb"));
-		message.setField(FIX::ProtocolSpec("ext.1.21"));		
+		message.setField(FIX::Username("100011"));
+		message.setField(FIX::Password("2EFS6pXCTpXZ"));
+		message.setField(FIX::ProtocolSpec("ext.1.32"));
 	}
 	std::cout << std::endl << "OUT: " << message << std::endl;
 }

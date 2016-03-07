@@ -406,6 +406,7 @@ namespace FIX
   const char OrdStatus_PENDINGNEW = 'A';
   const char OrdStatus_ACCEPTBIDDING = 'D';
   const char OrdStatus_PENDINGREP = 'E';
+  const char OrdStatus_PENDINGCLOSE = 'F';
   const char OrdType_MARKET = '1';
   const char OrdType_LIMIT = '2';
   const char OrdType_STOP = '3';
@@ -805,6 +806,7 @@ namespace FIX
   const char ExecType_TRADECORRECT = 'G';
   const char ExecType_TRADECANCEL = 'H';
   const char ExecType_ORDERSTATUS = 'I';
+  const char ExecType_PENDINGCLOSE = 'J';
   const char ExecType_TRADE_IN_A_CLEARING_HOLD = 'J';
   const char ExecType_TRADE_HAS_BEEN_RELEASED_TO_CLEARING = 'K';
   const char ExecType_TRIGGERED_OR_ACTIVATED_BY_SYSTEM = 'L';
@@ -4012,6 +4014,10 @@ namespace FIX
   const int TradeTransReason_TakeProfitAct = 4;
   const int TradeTransReason_DealerDecision = 5;
   const int TradeTransReason_Rollover = 6;
+  const int TradeTransReason_DeleteAccount = 7;
+  const int TradeTransReason_Expired = 8;
+  const int LogoutReason_TIMEOUT = -2;
+  const int LogoutReason_NETWORK_ERROR = -1;
   const int LogoutReason_CLIENT_LOGOUT = 0;
   const int LogoutReason_INVALID_CREDS = 1;
   const int LogoutReason_BLOCKED_LOGIN = 2;
@@ -4065,8 +4071,6 @@ namespace FIX
   const char AgentCommType_PCTWAIVEDCSHDISC = '4';
   const char AgentCommType_PCTWAIVEDENUNITS = '5';
   const char AgentCommType_PERBOND = '6';
-  const char AccountingSystemType_NONE = 'N';
-  const char AccountingSystemType_OneClickTrading = 'O';
   const int CommChargeType_PERTRADE = 0;
   const int CommChargeType_PERLOT = 1;
   const char TradeEnabled_NO = 'N';
@@ -4080,6 +4084,9 @@ namespace FIX
   const int CommChargeMethod_ROUNDTURN = 1;
   const char PosRemainingSide_BUY = '1';
   const char PosRemainingSide_SELL = '2';
+  const char ParentOrderType_MARKET = '1';
+  const char ParentOrderType_LIMIT = '2';
+  const char ParentOrderType_STOP = '3';
   const int StrategyParameterType_INT = 1;
   const int StrategyParameterType_LENGTH = 2;
   const int StrategyParameterType_NUMINGROUP = 3;

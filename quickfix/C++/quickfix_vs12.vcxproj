@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -12,8 +12,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\config_windows.h" />
+    <ClInclude Include="..\stdafx.h" />
     <ClInclude Include="Acceptor.h" />
-    <ClInclude Include="Allocator.h" />
     <ClInclude Include="Application.h" />
     <ClInclude Include="AtomicCount.h" />
     <ClInclude Include="DatabaseConnectionID.h" />
@@ -34,12 +34,10 @@
     <ClInclude Include="FileStore.h" />
     <ClInclude Include="fix40\Advertisement.h" />
     <ClInclude Include="fix40\Allocation.h" />
-    <ClInclude Include="fix40\AllocationInstructionAck.h" />
     <ClInclude Include="fix40\DontKnowTrade.h" />
     <ClInclude Include="fix40\Email.h" />
     <ClInclude Include="fix40\ExecutionReport.h" />
     <ClInclude Include="fix40\Heartbeat.h" />
-    <ClInclude Include="fix40\IOI.h" />
     <ClInclude Include="fix40\ListCancelRequest.h" />
     <ClInclude Include="fix40\ListExecute.h" />
     <ClInclude Include="fix40\ListStatus.h" />
@@ -63,12 +61,10 @@
     <ClInclude Include="fix40\TestRequest.h" />
     <ClInclude Include="fix41\Advertisement.h" />
     <ClInclude Include="fix41\Allocation.h" />
-    <ClInclude Include="fix41\AllocationInstructionAck.h" />
     <ClInclude Include="fix41\DontKnowTrade.h" />
     <ClInclude Include="fix41\Email.h" />
     <ClInclude Include="fix41\ExecutionReport.h" />
     <ClInclude Include="fix41\Heartbeat.h" />
-    <ClInclude Include="fix41\IOI.h" />
     <ClInclude Include="fix41\ListCancelRequest.h" />
     <ClInclude Include="fix41\ListExecute.h" />
     <ClInclude Include="fix41\ListStatus.h" />
@@ -93,7 +89,6 @@
     <ClInclude Include="fix41\TestRequest.h" />
     <ClInclude Include="fix42\Advertisement.h" />
     <ClInclude Include="fix42\Allocation.h" />
-    <ClInclude Include="fix42\AllocationInstructionAck.h" />
     <ClInclude Include="fix42\BidRequest.h" />
     <ClInclude Include="fix42\BidResponse.h" />
     <ClInclude Include="fix42\BusinessMessageReject.h" />
@@ -101,7 +96,6 @@
     <ClInclude Include="fix42\Email.h" />
     <ClInclude Include="fix42\ExecutionReport.h" />
     <ClInclude Include="fix42\Heartbeat.h" />
-    <ClInclude Include="fix42\IOI.h" />
     <ClInclude Include="fix42\ListCancelRequest.h" />
     <ClInclude Include="fix42\ListExecute.h" />
     <ClInclude Include="fix42\ListStatus.h" />
@@ -208,7 +202,6 @@
     <ClInclude Include="fix43\TradeCaptureReportRequest.h" />
     <ClInclude Include="fix43\TradingSessionStatus.h" />
     <ClInclude Include="fix43\TradingSessionStatusRequest.h" />
-    <ClInclude Include="fix43\XMLnonFIX.h" />
     <ClInclude Include="fix44\Advertisement.h" />
     <ClInclude Include="fix44\AllocationInstruction.h" />
     <ClInclude Include="fix44\AllocationInstructionAck.h" />
@@ -229,15 +222,11 @@
     <ClInclude Include="fix44\ConfirmationRequest.h" />
     <ClInclude Include="fix44\CrossOrderCancelReplaceRequest.h" />
     <ClInclude Include="fix44\CrossOrderCancelRequest.h" />
-    <ClInclude Include="fix44\CurrencyList.h" />
-    <ClInclude Include="fix44\CurrencyListRequest.h" />
     <ClInclude Include="fix44\DerivativeSecurityList.h" />
     <ClInclude Include="fix44\DerivativeSecurityListRequest.h" />
     <ClInclude Include="fix44\DontKnowTrade.h" />
     <ClInclude Include="fix44\Email.h" />
     <ClInclude Include="fix44\ExecutionReport.h" />
-    <ClInclude Include="fix44\FileClose.h" />
-    <ClInclude Include="fix44\FileOperationAck.h" />
     <ClInclude Include="fix44\Heartbeat.h" />
     <ClInclude Include="fix44\IOI.h" />
     <ClInclude Include="fix44\ListCancelRequest.h" />
@@ -270,12 +259,10 @@
     <ClInclude Include="fix44\OrderMassCancelRequest.h" />
     <ClInclude Include="fix44\OrderMassStatusRequest.h" />
     <ClInclude Include="fix44\OrderStatusRequest.h" />
-    <ClInclude Include="fix44\OrderTimeout.h" />
     <ClInclude Include="fix44\PositionMaintenanceReport.h" />
     <ClInclude Include="fix44\PositionMaintenanceRequest.h" />
     <ClInclude Include="fix44\PositionReport.h" />
     <ClInclude Include="fix44\Quote.h" />
-    <ClInclude Include="fix44\QuoteAcknowledgement.h" />
     <ClInclude Include="fix44\QuoteCancel.h" />
     <ClInclude Include="fix44\QuoteRequest.h" />
     <ClInclude Include="fix44\QuoteRequestReject.h" />
@@ -305,12 +292,10 @@
     <ClInclude Include="fix44\TradeCaptureReportAck.h" />
     <ClInclude Include="fix44\TradeCaptureReportRequest.h" />
     <ClInclude Include="fix44\TradeCaptureReportRequestAck.h" />
-    <ClInclude Include="fix44\TradeTransactionReport.h" />
     <ClInclude Include="fix44\TradingSessionStatus.h" />
     <ClInclude Include="fix44\TradingSessionStatusRequest.h" />
     <ClInclude Include="fix44\UserRequest.h" />
     <ClInclude Include="fix44\UserResponse.h" />
-    <ClInclude Include="fix44\XMLnonFIX.h" />
     <ClInclude Include="fix50sp1\AdjustedPositionReport.h" />
     <ClInclude Include="fix50sp1\Advertisement.h" />
     <ClInclude Include="fix50sp1\AllocationInstruction.h" />
@@ -637,7 +622,6 @@
     <ClInclude Include="FixValues.h" />
     <ClInclude Include="FlexLexer.h" />
     <ClInclude Include="Group.h" />
-    <ClInclude Include="HtmlBuilder.h" />
     <ClInclude Include="HttpConnection.h" />
     <ClInclude Include="HttpMessage.h" />
     <ClInclude Include="HttpParser.h" />
@@ -678,7 +662,6 @@
     <ClInclude Include="SocketInitiator.h" />
     <ClInclude Include="SocketMonitor.h" />
     <ClInclude Include="SocketServer.h" />
-    <ClInclude Include="stdafx.h" />
     <ClInclude Include="strptime.h" />
     <ClInclude Include="ThreadedSocketAcceptor.h" />
     <ClInclude Include="ThreadedSocketConnection.h" />
@@ -726,7 +709,7 @@
     <ClCompile Include="SocketInitiator.cpp" />
     <ClCompile Include="SocketMonitor.cpp" />
     <ClCompile Include="SocketServer.cpp" />
-    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="strptime.c" />
     <ClCompile Include="ThreadedSocketAcceptor.cpp" />
     <ClCompile Include="ThreadedSocketConnection.cpp" />
     <ClCompile Include="ThreadedSocketInitiator.cpp" />
@@ -736,20 +719,20 @@
   <PropertyGroup Label="Globals">
     <ProjectName>quickfix</ProjectName>
     <ProjectGuid>{D5D558EA-BBAC-4862-A946-D3881BACE3B7}</ProjectGuid>
-    <RootNamespace>quickfix_vs11</RootNamespace>
+    <RootNamespace>quickfix_vc12</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseOfMfc>false</UseOfMfc>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v110</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -777,7 +760,7 @@
       <Optimization>Disabled</Optimization>
       <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINSOCK_DEPRECATED_NO_WARNINGS;_DEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
@@ -792,6 +775,7 @@
       <SuppressStartupBanner>true</SuppressStartupBanner>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <CompileAs>Default</CompileAs>
+      <DisableSpecificWarnings>4244</DisableSpecificWarnings>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -811,7 +795,7 @@
       <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WINSOCK_DEPRECATED_NO_WARNINGS;NDEBUG;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -825,6 +809,7 @@
       <ProgramDataBaseFileName>$(IntDir)</ProgramDataBaseFileName>
       <WarningLevel>Level3</WarningLevel>
       <SuppressStartupBanner>true</SuppressStartupBanner>
+      <DisableSpecificWarnings>4244</DisableSpecificWarnings>
     </ClCompile>
     <ResourceCompile>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>

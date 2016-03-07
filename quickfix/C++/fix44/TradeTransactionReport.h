@@ -45,6 +45,7 @@ namespace FIX44
     FIELD_SET(*this, FIX::OrdCreated);
     FIELD_SET(*this, FIX::OrdModified);
     FIELD_SET(*this, FIX::PosID);
+    FIELD_SET(*this, FIX::PosByID);
     FIELD_SET(*this, FIX::PosOpened);
     FIELD_SET(*this, FIX::PosOpenReqPrice);
     FIELD_SET(*this, FIX::PosOpenPrice);
@@ -78,6 +79,7 @@ namespace FIX44
     FIELD_SET(*this, FIX::OpenConversionRate);
     FIELD_SET(*this, FIX::CloseConversionRate);
     FIELD_SET(*this, FIX::ParentOrderID);
+    FIELD_SET(*this, FIX::ParentOrderType);
   };
 
 }

@@ -40,13 +40,16 @@ namespace FIX44
     FIELD_SET(*this, FIX::Currency);
     FIELD_SET(*this, FIX::Account);
     FIELD_SET(*this, FIX::AccountingType);
-    FIELD_SET(*this, FIX::AccountingSystemType);
     FIELD_SET(*this, FIX::AccMarginCallLevel);
     FIELD_SET(*this, FIX::AccStopOutLevel);
     FIELD_SET(*this, FIX::AccountValidFlag);
     FIELD_SET(*this, FIX::AccountBlockedFlag);
     FIELD_SET(*this, FIX::InvestorLoginFlag);
     FIELD_SET(*this, FIX::AccountName);
+    FIELD_SET(*this, FIX::RegistEmail);
+    FIELD_SET(*this, FIX::RegistDate);
+    FIELD_SET(*this, FIX::EncodedCommentLen);
+    FIELD_SET(*this, FIX::EncodedComment);
     FIELD_SET(*this, FIX::NoAssets);
     class NoAssets: public FIX::Group
     {

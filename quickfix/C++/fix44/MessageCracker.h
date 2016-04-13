@@ -146,7 +146,8 @@ namespace FIX44
   class TradeTransactionReportRequestAck; 
   class TradeTransactionReport; 
   class ComponentsInfoRequest; 
-  class ComponentsInfoReport;
+  class ComponentsInfoReport; 
+  class TwoFactorLogon;
 
   class MessageCracker
   {
@@ -390,6 +391,8 @@ namespace FIX44
     { throw FIX::UnsupportedMessageType(); }
   virtual void onMessage( const ComponentsInfoReport&, const FIX::SessionID& ) 
     { throw FIX::UnsupportedMessageType(); }
+  virtual void onMessage( const TwoFactorLogon&, const FIX::SessionID& ) 
+    {}
   virtual void onMessage( Heartbeat&, const FIX::SessionID& ) {} 
  virtual void onMessage( TestRequest&, const FIX::SessionID& ) {} 
  virtual void onMessage( ResendRequest&, const FIX::SessionID& ) {} 
@@ -507,6 +510,7 @@ namespace FIX44
  virtual void onMessage( TradeTransactionReport&, const FIX::SessionID& ) {} 
  virtual void onMessage( ComponentsInfoRequest&, const FIX::SessionID& ) {} 
  virtual void onMessage( ComponentsInfoReport&, const FIX::SessionID& ) {} 
+ virtual void onMessage( TwoFactorLogon&, const FIX::SessionID& ) {} 
 
 public:
   void crack( const Message& message, 
@@ -865,6 +869,9 @@ public:
     else
     if( msgTypeValue == "U1019" )
       onMessage( (const ComponentsInfoReport&)message, sessionID );
+    else
+    if( msgTypeValue == "U1022" )
+      onMessage( (const TwoFactorLogon&)message, sessionID );
     else onMessage( message, sessionID );
   }
   
@@ -1225,6 +1232,9 @@ void crack( Message& message,
     else
     if( msgTypeValue == "U1019" )
       onMessage( (ComponentsInfoReport&)message, sessionID );
+    else
+    if( msgTypeValue == "U1022" )
+      onMessage( (TwoFactorLogon&)message, sessionID );
     else onMessage( message, sessionID );
   }
 

@@ -790,6 +790,9 @@
     <ClInclude Include="fix44\TradingSessionStatusRequest.h">
       <Filter>Message\Headers\fix44</Filter>
     </ClInclude>
+    <ClInclude Include="fix44\TwoFactorLogon.h">
+      <Filter>Message\Headers\fix44</Filter>
+    </ClInclude>
     <ClInclude Include="fix44\UserRequest.h">
       <Filter>Message\Headers\fix44</Filter>
     </ClInclude>

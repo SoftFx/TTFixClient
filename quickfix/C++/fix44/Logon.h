@@ -34,6 +34,7 @@ namespace FIX44
     FIELD_SET(*this, FIX::TestMessageIndicator);
     FIELD_SET(*this, FIX::Username);
     FIELD_SET(*this, FIX::Password);
+    FIELD_SET(*this, FIX::DeviceId);
     FIELD_SET(*this, FIX::ProtocolSpec);
     FIELD_SET(*this, FIX::NoMsgTypes);
     class NoMsgTypes: public FIX::Group

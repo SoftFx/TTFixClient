@@ -294,6 +294,7 @@
     <ClInclude Include="fix44\TradeCaptureReportRequestAck.h" />
     <ClInclude Include="fix44\TradingSessionStatus.h" />
     <ClInclude Include="fix44\TradingSessionStatusRequest.h" />
+    <ClInclude Include="fix44\TwoFactorLogon.h" />
     <ClInclude Include="fix44\UserRequest.h" />
     <ClInclude Include="fix44\UserResponse.h" />
     <ClInclude Include="fix50sp1\AdjustedPositionReport.h" />

@@ -127,6 +127,7 @@ namespace FIX
   const char MsgType_TradeTransactionReport[] = "U1017";
   const char MsgType_ComponentsInfoRequest[] = "U1018";
   const char MsgType_ComponentsInfoReport[] = "U1019";
+  const char MsgType_TwoFactorLogon[] = "U1022";
   const char MsgType_ContraryIntentionReport[] = "BO";
   const char MsgType_SecurityDefinitionUpdateReport[] = "BP";
   const char MsgType_SecurityListUpdateReport[] = "BK";
@@ -4087,6 +4088,9 @@ namespace FIX
   const char ParentOrderType_MARKET = '1';
   const char ParentOrderType_LIMIT = '2';
   const char ParentOrderType_STOP = '3';
+  const char TwoFactorReason_REQUEST = '1';
+  const char TwoFactorReason_RESPONSE = '2';
+  const char TwoFactorReason_RESUME = '3';
   const int StrategyParameterType_INT = 1;
   const int StrategyParameterType_LENGTH = 2;
   const int StrategyParameterType_NUMINGROUP = 3;

@@ -3956,9 +3956,10 @@
   <message name='ComponentsInfoReport' msgcat='app' msgtype='U1019'>
     <field name='ServerQuoteHistoryVersion' required='N' />
   </message>
- <message name='TwoFactorLogon' msgcat='admin' msgtype='U1022'>
+ <message name='TwoFactorLogon' msgcat='app' msgtype='U1022'>
     <field name='TwoFactorReason' required='Y' />
     <field name='OneTimePassword' required='N' />
+  <field name='Text' required='N' />
   </message>
  </messages>
  <trailer>
@@ -7714,6 +7715,7 @@
     <value enum='1' description='REQUEST' />
     <value enum='2' description='RESPONSE' />
     <value enum='3' description='RESUME' />
+  <value enum='4' description='INVALIDOTP' />
   </field>
   <field number='10152' name='OneTimePassword' type='STRING'/>
  </fields>

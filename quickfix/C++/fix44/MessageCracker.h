@@ -392,7 +392,7 @@ namespace FIX44
   virtual void onMessage( const ComponentsInfoReport&, const FIX::SessionID& ) 
     { throw FIX::UnsupportedMessageType(); }
   virtual void onMessage( const TwoFactorLogon&, const FIX::SessionID& ) 
-    {}
+    { throw FIX::UnsupportedMessageType(); }
   virtual void onMessage( Heartbeat&, const FIX::SessionID& ) {} 
  virtual void onMessage( TestRequest&, const FIX::SessionID& ) {} 
  virtual void onMessage( ResendRequest&, const FIX::SessionID& ) {} 

@@ -24,6 +24,7 @@ namespace FIX44
 
     FIELD_SET(*this, FIX::TwoFactorReason);
     FIELD_SET(*this, FIX::OneTimePassword);
+    FIELD_SET(*this, FIX::Text);
   };
 
 }

@@ -39,6 +39,38 @@ void MyApplication::onLogout( const FIX::SessionID& sessionID )
 	std::cout << std::endl << "Logout - " << sessionID << std::endl;
 }
 
+void MyApplication::onMessage(const FIX44::TwoFactorLogon &msg, const FIX::SessionID &sessionId)
+{
+  FIX::TwoFactorReason reason;
+  msg.get(reason);
+  char r = reason.getValue();
+
+  std::string reasonStr;
+  switch (r)
+  {
+  case FIX::TwoFactorReason_REQUEST: reasonStr = "Request"; break;
+  case FIX::TwoFactorReason_RESPONSE: reasonStr = "Response"; break;
+  case FIX::TwoFactorReason_RESUME: reasonStr = "Resume"; break;
+  case FIX::TwoFactorReason_INVALIDOTP: reasonStr = "Invalid one-time password"; break;
+  }
+  FIX::Text text;
+  msg.get(text);
+
+	std::cout << std::endl << "TwoFactorLogon received! Reason: " << reasonStr << " Text: " << text.getValue() << std::endl;
+
+  if (r == FIX::TwoFactorReason_REQUEST)
+  {
+    std::cout << std::endl << "Enter One-time password: " << std::endl;
+
+    std::string otp;
+    std::getline(std::cin, otp);
+
+    FIX44::TwoFactorLogon response(FIX::TwoFactorReason_RESPONSE);
+    response.setField(FIX::OneTimePassword(otp));
+    FIX::Session::sendToTarget(response, sessionId);
+  }
+}
+
 void MyApplication::onMessage( const FIX44::TradingSessionStatus& message, const FIX::SessionID& )
 {
 	std::cout << std::endl << "TradingSessionStatus received!" << std::endl;
@@ -61,9 +93,10 @@ void MyApplication::toAdmin( FIX::Message& message, const FIX::SessionID& )
 {
 	if (FIX::MsgType_Logon == message.getHeader().getField(FIX::FIELD::MsgType))
 	{
-		message.setField(FIX::Username("100011"));
-		message.setField(FIX::Password("2EFS6pXCTpXZ"));
-		message.setField(FIX::ProtocolSpec("ext.1.32"));
+		message.setField(FIX::Username("1001"));
+		message.setField(FIX::Password("123qwe"));
+		message.setField(FIX::ProtocolSpec("ext.1.33"));
+    message.setField(FIX::DeviceId("FIX44_Client"));
 	}
 	std::cout << std::endl << "OUT: " << message << std::endl;
 }
@@ -80,11 +113,7 @@ void MyApplication::run()
 	{
 		try
 		{
-			char action = 0;
-			std::cin >> action;
-
-			if ( action == 'q' )
-				break;
+      Sleep(0);
 		}
 		catch ( std::exception & e )
 		{

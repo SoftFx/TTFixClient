@@ -28,6 +28,7 @@
 #include "Values.h"
 #include "FIX44/Logon.h"
 #include "FIX44/MessageCracker.h"
+#include "FIX44/TwoFactorLogon.h"
 
 class MyApplication :
       public FIX::Application,
@@ -41,6 +42,7 @@ private:
   void onLogon( const FIX::SessionID& sessionID );
   void onLogout( const FIX::SessionID& sessionID );
   
+  void onMessage( const FIX44::TwoFactorLogon&, const FIX::SessionID& );
   void onMessage( const FIX44::TradingSessionStatus&, const FIX::SessionID& );
 
   void fromAdmin( const FIX::Message&, const FIX::SessionID& )

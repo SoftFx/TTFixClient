@@ -3956,10 +3956,11 @@
   <message name='ComponentsInfoReport' msgcat='app' msgtype='U1019'>
     <field name='ServerQuoteHistoryVersion' required='N' />
   </message>
- <message name='TwoFactorLogon' msgcat='app' msgtype='U1022'>
+  <message name='TwoFactorLogon' msgcat='app' msgtype='U1022'>
     <field name='TwoFactorReason' required='Y' />
     <field name='OneTimePassword' required='N' />
-  <field name='Text' required='N' />
+    <field name='ExpireTime' required='N' />
+    <field name='Text' required='N' />
   </message>
  </messages>
  <trailer>
@@ -4584,7 +4585,7 @@
    <value enum='U1019' description='COMPONENTSINFOREPORT' />
    <value enum='U1020' description='CURRENCYLISTREQUEST' />
    <value enum='U1021' description='CURRENCYLIST' />
-  <value enum='U1022' description='TWOFACTORLOGON' />
+   <value enum='U1022' description='TWOFACTORLOGON' />
   </field>
   <field number='36' name='NewSeqNo' type='SEQNUM' />
   <field number='37' name='OrderID' type='STRING' />
@@ -7710,12 +7711,12 @@
     <value enum='2' description='LIMIT' />
     <value enum='3' description='STOP' />
    </field>
- <field number='10150' name='DeviceId' type='STRING'/>
+  <field number='10150' name='DeviceId' type='STRING'/>
   <field number='10151' name='TwoFactorReason' type='CHAR'>
     <value enum='1' description='REQUEST' />
     <value enum='2' description='RESPONSE' />
     <value enum='3' description='RESUME' />
-  <value enum='4' description='INVALIDOTP' />
+    <value enum='4' description='INVALIDOTP' />
   </field>
   <field number='10152' name='OneTimePassword' type='STRING'/>
  </fields>

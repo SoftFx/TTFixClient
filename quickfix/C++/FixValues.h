@@ -4092,6 +4092,9 @@ namespace FIX
   const char TwoFactorReason_RESPONSE = '2';
   const char TwoFactorReason_RESUME = '3';
   const char TwoFactorReason_INVALIDOTP = '4';
+  const char TwoFactorReason_TFANOTSET = '5';
+  const char TwoFactorAuthFlag_NO = 'N';
+  const char TwoFactorAuthFlag_YES = 'Y';
   const int StrategyParameterType_INT = 1;
   const int StrategyParameterType_LENGTH = 2;
   const int StrategyParameterType_NUMINGROUP = 3;

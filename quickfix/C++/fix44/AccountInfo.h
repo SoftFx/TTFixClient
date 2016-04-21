@@ -45,6 +45,7 @@ namespace FIX44
     FIELD_SET(*this, FIX::AccountValidFlag);
     FIELD_SET(*this, FIX::AccountBlockedFlag);
     FIELD_SET(*this, FIX::InvestorLoginFlag);
+    FIELD_SET(*this, FIX::TwoFactorAuthFlag);
     FIELD_SET(*this, FIX::AccountName);
     FIELD_SET(*this, FIX::RegistEmail);
     FIELD_SET(*this, FIX::RegistDate);

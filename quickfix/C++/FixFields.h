@@ -1135,6 +1135,7 @@ namespace FIX
   DEFINE_STRING(DeviceId);
   DEFINE_CHAR(TwoFactorReason);
   DEFINE_STRING(OneTimePassword);
+  DEFINE_BOOLEAN(TwoFactorAuthFlag);
   DEFINE_NUMINGROUP(NoStrategyParameters);
   DEFINE_STRING(StrategyParameterName);
   DEFINE_INT(StrategyParameterType);

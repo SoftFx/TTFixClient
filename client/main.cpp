@@ -48,15 +48,32 @@ int _tmain(int argc, _TCHAR* argv[])
 
 		FIX::SessionID sessionId("FIX.4.4", std::string("CLIENT_") + CreateGUID(), "EXECUTOR");
 
+    std::cout << std::endl << "Enter Server address: " << std::endl;
+    std::string serverAddress;
+    std::getline(std::cin, serverAddress);
+
 		FIX::Dictionary sessionSettings;
-		sessionSettings.setString("SocketConnectHost", "ttdemo.soft-fx.com");
+		sessionSettings.setString("SocketConnectHost", serverAddress);
 		sessionSettings.setString("SocketConnectPort", "5001");
 
 		FIX::SessionSettings settings;
 		settings.set(defaults);
 		settings.set(sessionId, sessionSettings);
 
-		MyApplication application;
+    std::cout << std::endl << "Enter DeviceId: " << std::endl;
+    std::string deviceId;
+    std::getline(std::cin, deviceId);
+
+    std::cout << std::endl << "Enter Username: " << std::endl;
+    std::string username;
+    std::getline(std::cin, username);
+
+    std::cout << std::endl << "Enter Password: " << std::endl;
+    std::string password;
+    std::getline(std::cin, password);
+
+    MyApplication application(username, password, deviceId);
+
 		FIX::NullStoreFactory storeFactory;
 		FIX::FileLogFactory fileLogFactory(settings);
 		FIX::SocketInitiator initiator( application, storeFactory, settings, fileLogFactory );

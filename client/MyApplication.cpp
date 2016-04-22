@@ -93,10 +93,10 @@ void MyApplication::toAdmin( FIX::Message& message, const FIX::SessionID& )
 {
 	if (FIX::MsgType_Logon == message.getHeader().getField(FIX::FIELD::MsgType))
 	{
-		message.setField(FIX::Username("1001"));
-		message.setField(FIX::Password("123qwe"));
+		message.setField(FIX::Username(m_username));
+		message.setField(FIX::Password(m_password));
+    message.setField(FIX::DeviceId(m_deviceId));
 		message.setField(FIX::ProtocolSpec("ext.1.33"));
-    message.setField(FIX::DeviceId("FIX44_Client"));
 	}
 	std::cout << std::endl << "OUT: " << message << std::endl;
 }

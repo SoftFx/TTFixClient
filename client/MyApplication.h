@@ -34,7 +34,16 @@ class MyApplication :
       public FIX::Application,
       public FIX44::MessageCracker
 {
+  std::string m_username;
+  std::string m_password;
+  std::string m_deviceId;
 public:
+  MyApplication(std::string username, std::string password, std::string deviceId)
+  {
+    m_username = username;
+    m_password = password;
+    m_deviceId = deviceId;
+  }
   void run();
 
 private:

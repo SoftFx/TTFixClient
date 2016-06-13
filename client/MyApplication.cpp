@@ -31,12 +31,12 @@
 
 void MyApplication::onLogon( const FIX::SessionID& sessionID )
 {
-	std::cout << std::endl << "Logon - " << sessionID << std::endl;
+    std::cout << std::endl << "Logon - " << sessionID << std::endl;
 }
 
 void MyApplication::onLogout( const FIX::SessionID& sessionID )
 {
-	std::cout << std::endl << "Logout - " << sessionID << std::endl;
+    std::cout << std::endl << "Logout - " << sessionID << std::endl;
 }
 
 void MyApplication::onMessage(const FIX44::TwoFactorLogon &msg, const FIX::SessionID &sessionId)
@@ -56,7 +56,7 @@ void MyApplication::onMessage(const FIX44::TwoFactorLogon &msg, const FIX::Sessi
   FIX::Text text;
   msg.get(text);
 
-	std::cout << std::endl << "TwoFactorLogon received! Reason: " << reasonStr << " Text: " << text.getValue() << std::endl;
+    std::cout << std::endl << "TwoFactorLogon received! Reason: " << reasonStr << " Text: " << text.getValue() << std::endl;
 
   if (r == FIX::TwoFactorReason_REQUEST)
   {
@@ -73,51 +73,51 @@ void MyApplication::onMessage(const FIX44::TwoFactorLogon &msg, const FIX::Sessi
 
 void MyApplication::onMessage( const FIX44::TradingSessionStatus& message, const FIX::SessionID& )
 {
-	std::cout << std::endl << "TradingSessionStatus received!" << std::endl;
+    std::cout << std::endl << "TradingSessionStatus received!" << std::endl;
 }
 
 void MyApplication::fromAdmin( const FIX::Message& message, const FIX::SessionID& )
-	throw( FIX::FieldNotFound, FIX::IncorrectDataFormat, FIX::IncorrectTagValue, FIX::RejectLogon )
+    throw( FIX::FieldNotFound, FIX::IncorrectDataFormat, FIX::IncorrectTagValue, FIX::RejectLogon )
 {
-	std::cout << std::endl << "IN: " << message << std::endl;
+    std::cout << std::endl << "IN: " << message << std::endl;
 }
 
 void MyApplication::fromApp( const FIX::Message& message, const FIX::SessionID& sessionID )
-	throw( FIX::FieldNotFound, FIX::IncorrectDataFormat, FIX::IncorrectTagValue, FIX::UnsupportedMessageType )
+    throw( FIX::FieldNotFound, FIX::IncorrectDataFormat, FIX::IncorrectTagValue, FIX::UnsupportedMessageType )
 {
-	std::cout << std::endl << "IN: " << message << std::endl;
-	crack( message, sessionID );
+    std::cout << std::endl << "IN: " << message << std::endl;
+    crack( message, sessionID );
 }
 
 void MyApplication::toAdmin( FIX::Message& message, const FIX::SessionID& )
 {
-	if (FIX::MsgType_Logon == message.getHeader().getField(FIX::FIELD::MsgType))
-	{
-		message.setField(FIX::Username(m_username));
-		message.setField(FIX::Password(m_password));
+    if (FIX::MsgType_Logon == message.getHeader().getField(FIX::FIELD::MsgType))
+    {
+        message.setField(FIX::Username(m_username));
+        message.setField(FIX::Password(m_password));
     message.setField(FIX::DeviceId(m_deviceId));
-		message.setField(FIX::ProtocolSpec("ext.1.34"));
-	}
-	std::cout << std::endl << "OUT: " << message << std::endl;
+        message.setField(FIX::ProtocolSpec("ext.1.35"));
+    }
+    std::cout << std::endl << "OUT: " << message << std::endl;
 }
 
 void MyApplication::toApp( FIX::Message& message, const FIX::SessionID& sessionID )
-	throw( FIX::DoNotSend )
+    throw( FIX::DoNotSend )
 {
-	std::cout << std::endl << "OUT: " << message << std::endl;
+    std::cout << std::endl << "OUT: " << message << std::endl;
 }
 
 void MyApplication::run()
 {
-	//while ( true )
-	{
-		try
-		{
+    //while ( true )
+    {
+        try
+        {
       Sleep(3000);
-		}
-		catch ( std::exception & e )
-		{
-			std::cout << "Message Not Sent: " << e.what();
-		}
-	}
+        }
+        catch ( std::exception & e )
+        {
+            std::cout << "Message Not Sent: " << e.what();
+        }
+    }
 }

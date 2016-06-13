@@ -78,9 +78,12 @@ int _tmain(int argc, _TCHAR* argv[])
 		FIX::FileLogFactory fileLogFactory(settings);
 		FIX::SocketInitiator initiator( application, storeFactory, settings, fileLogFactory );
 
-		initiator.start();
-		application.run();
-		initiator.stop();
+		while (true)
+		{
+			initiator.start();
+			application.run();
+			initiator.stop();
+		}
 
 		return 0;
 	}

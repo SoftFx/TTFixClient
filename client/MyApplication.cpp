@@ -109,11 +109,11 @@ void MyApplication::toApp( FIX::Message& message, const FIX::SessionID& sessionI
 
 void MyApplication::run()
 {
-	while ( true )
+	//while ( true )
 	{
 		try
 		{
-      Sleep(0);
+      Sleep(3000);
 		}
 		catch ( std::exception & e )
 		{

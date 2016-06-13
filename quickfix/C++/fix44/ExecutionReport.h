@@ -301,8 +301,9 @@ namespace FIX44
     class NoAssets: public FIX::Group
     {
     public:
-    NoAssets() : FIX::Group(10117,10118,FIX::message_order(10118,10119,10120,0)) {}
+    NoAssets() : FIX::Group(10117,10118,FIX::message_order(10118,10154,10119,10120,0)) {}
       FIELD_SET(*this, FIX::AssetBalance);
+      FIELD_SET(*this, FIX::AssetLockedAmt);
       FIELD_SET(*this, FIX::AssetTradeAmt);
       FIELD_SET(*this, FIX::AssetCurrency);
     };

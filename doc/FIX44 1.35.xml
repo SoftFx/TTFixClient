@@ -60,7 +60,7 @@
    <field name='Text' required='N' />
    <field name='EncodedTextLen' required='N' />
    <field name='EncodedText' required='N' />
-   <field name='LogoutReason' required='N' /> 
+   <field name='LogoutReason' required='N' />
   </message>
   <message name='IOI' msgcat='app' msgtype='6'>
    <field name='IOIID' required='Y' />
@@ -304,7 +304,7 @@
    <component name='Assets' required='N' />
    <field name='OrdCreated' required='N' />
    <field name='OrdModified' required='N' />
-   <field name='Swap' required='N' /> 
+   <field name='Swap' required='N' />
    <component name='Comment' required='N' />
    <component name='Tag' required='N' />
    <field name='Magic' required='N' />
@@ -349,7 +349,8 @@
    <field name='TestMessageIndicator' required='N' />
    <field name='Username' required='N' />
    <field name='Password' required='N' />
-   <field name='ProtocolSpec' required='N' /> 
+   <field name='DeviceId' required='N' />
+   <field name='ProtocolSpec' required='N' />
   </message>
   <message name='News' msgcat='app' msgtype='B'>
    <field name='OrigTime' required='N' />
@@ -1220,7 +1221,7 @@
   <message name='MarketDataIncrementalRefresh' msgcat='app' msgtype='X'>
    <field name='MDReqID' required='N' />
    <field name='OrigTime' required='N' />
-   <field name='TickId' required='N' /> 
+   <field name='TickId' required='N' />
    <group name='NoMDEntries' required='Y'>
     <field name='MDUpdateAction' required='Y' />
     <field name='DeleteReason' required='N' />
@@ -2049,7 +2050,7 @@
      <component name='LegBenchmarkCurveData' required='N' />
     </group>
     <component name='SpreadOrBenchmarkCurveData' required='N' />
-    <component name='YieldData' required='N' /> 
+    <component name='YieldData' required='N' />
     <field name='PxPrecision' required='N' />
     <field name='RoundLot' required='N' />
     <field name='MinTradeVol' required='N' />
@@ -2058,8 +2059,8 @@
     <field name='ProfitCalcMode' required='N' />
     <field name='MarginCalcMode' required='N' />
     <field name='MarginHedge' required='N' />
-    <field name='MarginFactor' required='N' /> 
-    <field name='MarginFactorFractional' required='N' /> 
+    <field name='MarginFactor' required='N' />
+    <field name='MarginFactorFractional' required='N' />
     <field name='TradingSessionID' required='N' />
     <field name='TradingSessionSubID' required='N' />
     <field name='ExpirationCycle' required='N' />
@@ -3821,6 +3822,7 @@
     <field name='AccountValidFlag' required='N' />
     <field name='AccountBlockedFlag' required='N' />
     <field name='InvestorLoginFlag' required='N' />
+    <field name='TwoFactorAuthFlag' required='N' />
     <field name='AccountName' required='N' />
     <field name='RegistEmail' required='N' />
     <field name='RegistDate' required='N' />
@@ -3935,7 +3937,7 @@
     <field name='PosRemainingPrice' required='N' />
     <component name='CommissionData' required='N' />
     <component name='AgentCommissionData' required='N' />
-    <field name='Swap' required='N' /> 
+    <field name='Swap' required='N' />
     <field name='StopLoss' required='N' />
     <field name='TakeProfit' required='N' />
     <component name='Comment' required='N' />
@@ -3954,6 +3956,12 @@
   </message>
   <message name='ComponentsInfoReport' msgcat='app' msgtype='U1019'>
     <field name='ServerQuoteHistoryVersion' required='N' />
+  </message>
+  <message name='TwoFactorLogon' msgcat='app' msgtype='U1022'>
+    <field name='TwoFactorReason' required='Y' />
+    <field name='OneTimePassword' required='N' />
+    <field name='ExpireTime' required='N' />
+    <field name='Text' required='N' />
   </message>
  </messages>
  <trailer>
@@ -4320,6 +4328,7 @@
    <component name='Assets'>
      <group name='NoAssets' required='N'>
        <field name='AssetBalance' required='N' />
+       <field name='AssetLockedAmt' required='N' />
        <field name='AssetTradeAmt' required='N' />
        <field name='AssetCurrency' required='N' />
      </group>
@@ -4578,6 +4587,7 @@
    <value enum='U1019' description='COMPONENTSINFOREPORT' />
    <value enum='U1020' description='CURRENCYLISTREQUEST' />
    <value enum='U1021' description='CURRENCYLIST' />
+   <value enum='U1022' description='TWOFACTORLOGON' />
   </field>
   <field number='36' name='NewSeqNo' type='SEQNUM' />
   <field number='37' name='OrderID' type='STRING' />
@@ -7664,8 +7674,8 @@
    <value enum='N' description='NO' />
    <value enum='Y' description='YES' />
   </field>
-  <field number='10129' name='PlatformName' type='STRING' />  
-  <field number='10130' name='PlatformCompany' type='STRING' />  
+  <field number='10129' name='PlatformName' type='STRING' />
+  <field number='10130' name='PlatformCompany' type='STRING' />
   <field number='10131' name='SortOrder' type='INT' />
   <field number='10132' name='GroupSortOrder' type='INT' />
   <field number='10133' name='AccountBlockedFlag' type='BOOLEAN'>
@@ -7703,5 +7713,19 @@
     <value enum='2' description='LIMIT' />
     <value enum='3' description='STOP' />
    </field>
- </fields>
+  <field number='10150' name='DeviceId' type='STRING'/>
+  <field number='10151' name='TwoFactorReason' type='CHAR'>
+    <value enum='1' description='REQUEST' />
+    <value enum='2' description='RESPONSE' />
+    <value enum='3' description='RESUME' />
+    <value enum='4' description='INVALIDOTP' />
+    <value enum='5' description='TFANOTSET' />
+  </field>
+  <field number='10152' name='OneTimePassword' type='STRING'/>
+  <field number='10153' name='TwoFactorAuthFlag' type='BOOLEAN'>
+    <value enum='N' description='NO' />
+    <value enum='Y' description='YES' />
+  </field>
+  <field number='10154' name='AssetLockedAmt' type='AMT' />
+</fields>
 </fix>

@@ -96,7 +96,7 @@ void MyApplication::toAdmin( FIX::Message& message, const FIX::SessionID& )
 		message.setField(FIX::Username(m_username));
 		message.setField(FIX::Password(m_password));
     message.setField(FIX::DeviceId(m_deviceId));
-		message.setField(FIX::ProtocolSpec("ext.1.33"));
+		message.setField(FIX::ProtocolSpec("ext.1.34"));
 	}
 	std::cout << std::endl << "OUT: " << message << std::endl;
 }

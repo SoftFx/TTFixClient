@@ -48,27 +48,27 @@ void MyApplication::onMessage(const FIX44::TwoFactorLogon &msg, const FIX::Sessi
   std::string reasonStr;
   switch (r)
   {
-  case FIX::TwoFactorReason_REQUEST: reasonStr = "Request"; break;
-  case FIX::TwoFactorReason_RESPONSE: reasonStr = "Response"; break;
-  case FIX::TwoFactorReason_RESUME: reasonStr = "Resume"; break;
-  case FIX::TwoFactorReason_INVALIDOTP: reasonStr = "Invalid one-time password"; break;
+	case FIX::TwoFactorReason_REQUEST: reasonStr = "Request"; break;
+	case FIX::TwoFactorReason_RESPONSE: reasonStr = "Response"; break;
+	case FIX::TwoFactorReason_RESUME: reasonStr = "Resume"; break;
+	case FIX::TwoFactorReason_INVALIDOTP: reasonStr = "Invalid one-time password"; break;
   }
-  FIX::Text text;
-  msg.get(text);
+	FIX::Text text;
+	msg.get(text);
 
     std::cout << std::endl << "TwoFactorLogon received! Reason: " << reasonStr << " Text: " << text.getValue() << std::endl;
 
-  if (r == FIX::TwoFactorReason_REQUEST)
-  {
-    std::cout << std::endl << "Enter One-time password: " << std::endl;
+	if (r == FIX::TwoFactorReason_REQUEST)
+	{
+	    std::cout << std::endl << "Enter One-time password: " << std::endl;
 
-    std::string otp;
-    std::getline(std::cin, otp);
+	    std::string otp;
+	    std::getline(std::cin, otp);
 
-    FIX44::TwoFactorLogon response(FIX::TwoFactorReason_RESPONSE);
-    response.setField(FIX::OneTimePassword(otp));
-    FIX::Session::sendToTarget(response, sessionId);
-  }
+	    FIX44::TwoFactorLogon response(FIX::TwoFactorReason_RESPONSE);
+	    response.setField(FIX::OneTimePassword(otp));
+	    FIX::Session::sendToTarget(response, sessionId);
+	}
 }
 
 void MyApplication::onMessage( const FIX44::TradingSessionStatus& message, const FIX::SessionID& )
@@ -95,7 +95,7 @@ void MyApplication::toAdmin( FIX::Message& message, const FIX::SessionID& )
     {
         message.setField(FIX::Username(m_username));
         message.setField(FIX::Password(m_password));
-    message.setField(FIX::DeviceId(m_deviceId));
+        message.setField(FIX::DeviceId(m_deviceId));
         message.setField(FIX::ProtocolSpec("ext.1.35"));
     }
     std::cout << std::endl << "OUT: " << message << std::endl;
@@ -109,11 +109,11 @@ void MyApplication::toApp( FIX::Message& message, const FIX::SessionID& sessionI
 
 void MyApplication::run()
 {
-    //while ( true )
+    while ( true )
     {
         try
         {
-      Sleep(3000);
+            Sleep(3000);
         }
         catch ( std::exception & e )
         {

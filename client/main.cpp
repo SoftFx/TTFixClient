@@ -45,12 +45,13 @@ int _tmain(int argc, _TCHAR* argv[])
 		defaults.setString("UseDataDictionary", "Y");
 		defaults.setString("DataDictionary", "FIX44.xml");
 		defaults.setString("FileLogPath", "Log");
+		defaults.setString("ValidateFieldsHaveValues", "N");
 
 		FIX::SessionID sessionId("FIX.4.4", std::string("CLIENT_") + CreateGUID(), "EXECUTOR");
 
-    std::cout << std::endl << "Enter Server address: " << std::endl;
-    std::string serverAddress;
-    std::getline(std::cin, serverAddress);
+		std::cout << std::endl << "Enter Server address: " << std::endl;
+		std::string serverAddress;
+		std::getline(std::cin, serverAddress);
 
 		FIX::Dictionary sessionSettings;
 		sessionSettings.setString("SocketConnectHost", serverAddress);
@@ -60,19 +61,19 @@ int _tmain(int argc, _TCHAR* argv[])
 		settings.set(defaults);
 		settings.set(sessionId, sessionSettings);
 
-    std::cout << std::endl << "Enter DeviceId: " << std::endl;
-    std::string deviceId;
-    std::getline(std::cin, deviceId);
+		std::cout << std::endl << "Enter DeviceId: " << std::endl;
+		std::string deviceId;
+		std::getline(std::cin, deviceId);
 
-    std::cout << std::endl << "Enter Username: " << std::endl;
-    std::string username;
-    std::getline(std::cin, username);
+		std::cout << std::endl << "Enter Username: " << std::endl;
+		std::string username;
+		std::getline(std::cin, username);
 
-    std::cout << std::endl << "Enter Password: " << std::endl;
-    std::string password;
-    std::getline(std::cin, password);
+		std::cout << std::endl << "Enter Password: " << std::endl;
+		std::string password;
+		std::getline(std::cin, password);
 
-    MyApplication application(username, password, deviceId);
+		MyApplication application(username, password, deviceId);
 
 		FIX::NullStoreFactory storeFactory;
 		FIX::FileLogFactory fileLogFactory(settings);

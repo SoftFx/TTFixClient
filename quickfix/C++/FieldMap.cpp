@@ -173,7 +173,7 @@ size_t FieldMap::totalFields() const
   return result;
 }
 
-std::string& FieldMap::calculateString( std::string& result, bool clear ) const
+std::string& FieldMap::calculateString( std::string& result ) const
 {  
   Fields::const_iterator i;
   for ( i = m_fields.begin(); i != m_fields.end(); ++i )

@@ -2079,6 +2079,7 @@
     <field name='SwapSizeShort' required='N' />
     <field name='SwapSizeLong' required='N' />
     <field name='TradeEnabled' required='N' />
+    <field name='DefaultSlippage' required='N' />
     <field name='SortOrder' required='N' />
     <field name='GroupSortOrder' required='N' />
    </group>
@@ -3950,6 +3951,8 @@
     <field name='CloseConversionRate' required='N' />
     <field name='ParentOrderID' required='N' />
     <field name='ParentOrderType' required='N' />
+    <field name='ExpireDate' required='N' />
+    <field name='ExpireTime' required='N' />
   </message>
   <message name='ComponentsInfoRequest' msgcat='app' msgtype='U1018'>
     <field name='ClientQuoteHistoryVersion' required='N' />
@@ -7727,5 +7730,6 @@
     <value enum='Y' description='YES' />
   </field>
   <field number='10154' name='AssetLockedAmt' type='AMT' />
+  <field number='10155' name='DefaultSlippage' type='PERCENTAGE' />
 </fields>
 </fix>

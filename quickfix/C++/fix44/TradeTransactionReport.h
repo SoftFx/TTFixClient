@@ -80,6 +80,8 @@ namespace FIX44
     FIELD_SET(*this, FIX::CloseConversionRate);
     FIELD_SET(*this, FIX::ParentOrderID);
     FIELD_SET(*this, FIX::ParentOrderType);
+    FIELD_SET(*this, FIX::ExpireDate);
+    FIELD_SET(*this, FIX::ExpireTime);
   };
 
 }

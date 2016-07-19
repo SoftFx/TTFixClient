@@ -1137,6 +1137,7 @@ namespace FIX
   DEFINE_STRING(OneTimePassword);
   DEFINE_BOOLEAN(TwoFactorAuthFlag);
   DEFINE_AMT(AssetLockedAmt);
+  DEFINE_PERCENTAGE(DefaultSlippage);
   DEFINE_NUMINGROUP(NoStrategyParameters);
   DEFINE_STRING(StrategyParameterName);
   DEFINE_INT(StrategyParameterType);

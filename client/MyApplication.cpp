@@ -58,7 +58,7 @@ void MyApplication::onMessage(const FIX44::TwoFactorLogon &msg, const FIX::Sessi
 
     std::cout << std::endl << "TwoFactorLogon received! Reason: " << reasonStr << " Text: " << text.getValue() << std::endl;
 
-	if (r == FIX::TwoFactorReason_REQUEST)
+	if ((r == FIX::TwoFactorReason_REQUEST) || (r == FIX::TwoFactorReason_INVALIDOTP))
 	{
 	    std::cout << std::endl << "Enter One-time password: " << std::endl;
 

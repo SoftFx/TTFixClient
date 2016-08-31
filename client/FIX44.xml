@@ -3895,6 +3895,7 @@
     <field name='TradeRequestID' required='Y' />
     <field name='SubscriptionRequestType' required='N' />
     <field name='TotNumTradeReports' required='N' />
+    <field name='CurNumTradeReports' required='N' />
     <field name='EndOfStrm' required='N' />
     <field name='TradeTransRepRequestResult' required='Y' />
     <field name='Text' required='N' />
@@ -3903,8 +3904,6 @@
   </message>
   <message name='TradeTransactionReport' msgcat='app' msgtype='U1017'>
     <field name='TradeReportID' required='Y' />
-    <field name='TotNumTradeReports' required='N' />
-    <field name='LastRptRequested' required='N' />
     <field name='TradeRequestID' required='N' />
     <field name='TradeTransReportType' required='N' />
     <field name='TradeTransReason' required='N' />
@@ -7715,14 +7714,14 @@
     <value enum='1' description='MARKET' />
     <value enum='2' description='LIMIT' />
     <value enum='3' description='STOP' />
-   </field>
+  </field>
   <field number='10150' name='DeviceId' type='STRING'/>
   <field number='10151' name='TwoFactorReason' type='CHAR'>
-    <value enum='1' description='REQUEST' />
-    <value enum='2' description='RESPONSE' />
-    <value enum='3' description='RESUME' />
-    <value enum='4' description='INVALIDOTP' />
-    <value enum='5' description='TFANOTSET' />
+    <value enum='1' description='SERVER_REQUEST' />
+    <value enum='2' description='SERVER_SUCCESS' />
+    <value enum='3' description='SERVER_ERROR' />
+    <value enum='4' description='CLIENT_RESPONSE' />
+    <value enum='5' description='CLIENT_RESUME' />
   </field>
   <field number='10152' name='OneTimePassword' type='STRING'/>
   <field number='10153' name='TwoFactorAuthFlag' type='BOOLEAN'>
@@ -7731,5 +7730,6 @@
   </field>
   <field number='10154' name='AssetLockedAmt' type='AMT' />
   <field number='10155' name='DefaultSlippage' type='PERCENTAGE' />
+  <field number='10156' name='CurNumTradeReports' type='INT' />
 </fields>
 </fix>

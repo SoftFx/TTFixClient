@@ -1136,6 +1136,7 @@ namespace FIX
     const int TwoFactorAuthFlag = 10153;
     const int AssetLockedAmt = 10154;
     const int DefaultSlippage = 10155;
+    const int CurNumTradeReports = 10156;
     const int NoStrategyParameters = 957;
     const int StrategyParameterName = 958;
     const int StrategyParameterType = 959;

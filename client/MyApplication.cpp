@@ -45,30 +45,28 @@ void MyApplication::onMessage(const FIX44::TwoFactorLogon &msg, const FIX::Sessi
   msg.get(reason);
   char r = reason.getValue();
 
-  std::string reasonStr;
-  switch (r)
-  {
-	case FIX::TwoFactorReason_REQUEST: reasonStr = "Request"; break;
-	case FIX::TwoFactorReason_RESPONSE: reasonStr = "Response"; break;
-	case FIX::TwoFactorReason_RESUME: reasonStr = "Resume"; break;
-	case FIX::TwoFactorReason_INVALIDOTP: reasonStr = "Invalid one-time password"; break;
-  }
-	FIX::Text text;
-	msg.get(text);
+    FIX::Text text;
+    msg.get(text);
 
-    std::cout << std::endl << "TwoFactorLogon received! Reason: " << reasonStr << " Text: " << text.getValue() << std::endl;
+    std::cout << std::endl << "TwoFactorLogon received - " << text.getValue() << std::endl;
 
-	if ((r == FIX::TwoFactorReason_REQUEST) || (r == FIX::TwoFactorReason_INVALIDOTP))
-	{
-	    std::cout << std::endl << "Enter One-time password: " << std::endl;
+    if (r == FIX::TwoFactorReason_SERVER_REQUEST)
+    {
+        std::cout << std::endl << "Enter One-time password: " << std::endl;
 
-	    std::string otp;
-	    std::getline(std::cin, otp);
+        std::string otp;
+        std::getline(std::cin, otp);
 
-	    FIX44::TwoFactorLogon response(FIX::TwoFactorReason_RESPONSE);
-	    response.setField(FIX::OneTimePassword(otp));
-	    FIX::Session::sendToTarget(response, sessionId);
-	}
+        FIX44::TwoFactorLogon response(FIX::TwoFactorReason_CLIENT_RESPONSE);
+        response.setField(FIX::OneTimePassword(otp));
+        FIX::Session::sendToTarget(response, sessionId);
+    }
+	else if (r == FIX::TwoFactorReason_SERVER_SUCCESS)
+		std::cout << std::endl << "One-time password was successfully validated!" << std::endl;
+	else if (r == FIX::TwoFactorReason_SERVER_ERROR)
+		std::cout << std::endl << "Failed to validate One-time password!" << std::endl;
+	else
+		std::cout << std::endl << "Invalid two factor reason!" << std::endl;
 }
 
 void MyApplication::onMessage( const FIX44::TradingSessionStatus& message, const FIX::SessionID& )

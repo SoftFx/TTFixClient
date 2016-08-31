@@ -4088,11 +4088,11 @@ namespace FIX
   const char ParentOrderType_MARKET = '1';
   const char ParentOrderType_LIMIT = '2';
   const char ParentOrderType_STOP = '3';
-  const char TwoFactorReason_REQUEST = '1';
-  const char TwoFactorReason_RESPONSE = '2';
-  const char TwoFactorReason_RESUME = '3';
-  const char TwoFactorReason_INVALIDOTP = '4';
-  const char TwoFactorReason_TFANOTSET = '5';
+  const char TwoFactorReason_SERVER_REQUEST = '1';
+  const char TwoFactorReason_SERVER_SUCCESS = '2';
+  const char TwoFactorReason_SERVER_ERROR = '3';
+  const char TwoFactorReason_CLIENT_RESPONSE = '4';
+  const char TwoFactorReason_CLIENT_RESUME = '5';
   const char TwoFactorAuthFlag_NO = 'N';
   const char TwoFactorAuthFlag_YES = 'Y';
   const int StrategyParameterType_INT = 1;

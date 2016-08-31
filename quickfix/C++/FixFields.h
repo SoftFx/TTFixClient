@@ -1138,6 +1138,7 @@ namespace FIX
   DEFINE_BOOLEAN(TwoFactorAuthFlag);
   DEFINE_AMT(AssetLockedAmt);
   DEFINE_PERCENTAGE(DefaultSlippage);
+  DEFINE_INT(CurNumTradeReports);
   DEFINE_NUMINGROUP(NoStrategyParameters);
   DEFINE_STRING(StrategyParameterName);
   DEFINE_INT(StrategyParameterType);

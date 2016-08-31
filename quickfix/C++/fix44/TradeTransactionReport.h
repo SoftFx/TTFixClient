@@ -23,8 +23,6 @@ namespace FIX44
     }
 
     FIELD_SET(*this, FIX::TradeReportID);
-    FIELD_SET(*this, FIX::TotNumTradeReports);
-    FIELD_SET(*this, FIX::LastRptRequested);
     FIELD_SET(*this, FIX::TradeRequestID);
     FIELD_SET(*this, FIX::TradeTransReportType);
     FIELD_SET(*this, FIX::TradeTransReason);

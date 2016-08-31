@@ -61,12 +61,12 @@ void MyApplication::onMessage(const FIX44::TwoFactorLogon &msg, const FIX::Sessi
         response.setField(FIX::OneTimePassword(otp));
         FIX::Session::sendToTarget(response, sessionId);
     }
-	else if (r == FIX::TwoFactorReason_SERVER_SUCCESS)
-		std::cout << std::endl << "One-time password was successfully validated!" << std::endl;
-	else if (r == FIX::TwoFactorReason_SERVER_ERROR)
-		std::cout << std::endl << "Failed to validate One-time password!" << std::endl;
-	else
-		std::cout << std::endl << "Invalid two factor reason!" << std::endl;
+    else if (r == FIX::TwoFactorReason_SERVER_SUCCESS)
+        std::cout << std::endl << "One-time password was successfully validated!" << std::endl;
+    else if (r == FIX::TwoFactorReason_SERVER_ERROR)
+        std::cout << std::endl << "Failed to validate One-time password!" << std::endl;
+    else
+        std::cout << std::endl << "Invalid two factor reason!" << std::endl;
 }
 
 void MyApplication::onMessage( const FIX44::TradingSessionStatus& message, const FIX::SessionID& )
@@ -94,7 +94,7 @@ void MyApplication::toAdmin( FIX::Message& message, const FIX::SessionID& )
         message.setField(FIX::Username(m_username));
         message.setField(FIX::Password(m_password));
         message.setField(FIX::DeviceId(m_deviceId));
-        message.setField(FIX::ProtocolSpec("ext.1.35"));
+        message.setField(FIX::ProtocolSpec("ext.1.38"));
     }
     std::cout << std::endl << "OUT: " << message << std::endl;
 }

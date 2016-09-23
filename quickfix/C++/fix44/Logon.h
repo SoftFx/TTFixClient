@@ -36,6 +36,7 @@ namespace FIX44
     FIELD_SET(*this, FIX::Password);
     FIELD_SET(*this, FIX::DeviceId);
     FIELD_SET(*this, FIX::ProtocolSpec);
+    FIELD_SET(*this, FIX::TwoFactorAuthFlag);
     FIELD_SET(*this, FIX::NoMsgTypes);
     class NoMsgTypes: public FIX::Group
     {

@@ -69,9 +69,11 @@ void MyApplication::onMessage(const FIX44::TwoFactorLogon &msg, const FIX::Sessi
         std::cout << std::endl << "Invalid two factor reason!" << std::endl;
 }
 
-void MyApplication::onMessage( const FIX44::TradingSessionStatus& message, const FIX::SessionID& )
+void MyApplication::onMessage( const FIX44::TradingSessionStatus& message, const FIX::SessionID& sessionId)
 {
     std::cout << std::endl << "TradingSessionStatus received!" << std::endl;
+	FIX44::TwoFactorLogon response(FIX::TwoFactorReason_CLIENT_RESUME);
+	FIX::Session::sendToTarget(response, sessionId);
 }
 
 void MyApplication::fromAdmin( const FIX::Message& message, const FIX::SessionID& )

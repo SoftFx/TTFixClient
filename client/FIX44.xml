@@ -351,6 +351,7 @@
    <field name='Password' required='N' />
    <field name='DeviceId' required='N' />
    <field name='ProtocolSpec' required='N' />
+   <field name='TwoFactorAuthFlag' required='N' />
   </message>
   <message name='News' msgcat='app' msgtype='B'>
    <field name='OrigTime' required='N' />

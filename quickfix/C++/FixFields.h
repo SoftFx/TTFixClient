@@ -1132,13 +1132,14 @@ namespace FIX
   DEFINE_UTCTIMESTAMP(RegistDate);
   DEFINE_STRING(PosByID);
   DEFINE_CHAR(ParentOrderType);
-  DEFINE_STRING(DeviceId);
+  DEFINE_STRING(DeviceID);
   DEFINE_CHAR(TwoFactorReason);
   DEFINE_STRING(OneTimePassword);
   DEFINE_BOOLEAN(TwoFactorAuthFlag);
   DEFINE_AMT(AssetLockedAmt);
   DEFINE_PERCENTAGE(DefaultSlippage);
   DEFINE_INT(CurNumTradeReports);
+  DEFINE_STRING(AppSessionID);
   DEFINE_NUMINGROUP(NoStrategyParameters);
   DEFINE_STRING(StrategyParameterName);
   DEFINE_INT(StrategyParameterType);

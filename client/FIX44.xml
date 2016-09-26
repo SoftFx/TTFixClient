@@ -349,9 +349,10 @@
    <field name='TestMessageIndicator' required='N' />
    <field name='Username' required='N' />
    <field name='Password' required='N' />
-   <field name='DeviceId' required='N' />
+   <field name='DeviceID' required='N' />
+   <field name='AppSessionID' required='N' />
    <field name='ProtocolSpec' required='N' />
-   <field name='TwoFactorAuthFlag' required='N' />
+  <field name='TwoFactorAuthFlag' required='N' />
   </message>
   <message name='News' msgcat='app' msgtype='B'>
    <field name='OrigTime' required='N' />
@@ -7716,7 +7717,7 @@
     <value enum='2' description='LIMIT' />
     <value enum='3' description='STOP' />
   </field>
-  <field number='10150' name='DeviceId' type='STRING'/>
+  <field number='10150' name='DeviceID' type='STRING'/>
   <field number='10151' name='TwoFactorReason' type='CHAR'>
     <value enum='1' description='SERVER_REQUEST' />
     <value enum='2' description='SERVER_SUCCESS' />
@@ -7732,5 +7733,6 @@
   <field number='10154' name='AssetLockedAmt' type='AMT' />
   <field number='10155' name='DefaultSlippage' type='PERCENTAGE' />
   <field number='10156' name='CurNumTradeReports' type='INT' />
+  <field number='10157' name='AppSessionID' type='STRING'/>
 </fields>
 </fix>

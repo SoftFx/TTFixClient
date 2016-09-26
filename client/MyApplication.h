@@ -37,12 +37,14 @@ class MyApplication :
   std::string m_username;
   std::string m_password;
   std::string m_deviceId;
+  std::string m_appSessionId;
 public:
-  MyApplication(std::string username, std::string password, std::string deviceId)
+  MyApplication(std::string username, std::string password, std::string deviceId, std::string appSessionId)
   {
     m_username = username;
     m_password = password;
     m_deviceId = deviceId;
+	m_appSessionId = appSessionId;
   }
   void run();
 

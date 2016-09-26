@@ -65,6 +65,10 @@ int _tmain(int argc, _TCHAR* argv[])
 		std::string deviceId;
 		std::getline(std::cin, deviceId);
 
+		std::cout << std::endl << "Enter AppSessionId: " << std::endl;
+		std::string appSessionId;
+		std::getline(std::cin, appSessionId);
+
 		std::cout << std::endl << "Enter Username: " << std::endl;
 		std::string username;
 		std::getline(std::cin, username);
@@ -73,7 +77,7 @@ int _tmain(int argc, _TCHAR* argv[])
 		std::string password;
 		std::getline(std::cin, password);
 
-		MyApplication application(username, password, deviceId);
+		MyApplication application(username, password, deviceId, appSessionId);
 
 		FIX::NullStoreFactory storeFactory;
 		FIX::FileLogFactory fileLogFactory(settings);

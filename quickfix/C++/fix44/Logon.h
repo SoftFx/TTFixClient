@@ -34,7 +34,8 @@ namespace FIX44
     FIELD_SET(*this, FIX::TestMessageIndicator);
     FIELD_SET(*this, FIX::Username);
     FIELD_SET(*this, FIX::Password);
-    FIELD_SET(*this, FIX::DeviceId);
+    FIELD_SET(*this, FIX::DeviceID);
+    FIELD_SET(*this, FIX::AppSessionID);
     FIELD_SET(*this, FIX::ProtocolSpec);
     FIELD_SET(*this, FIX::TwoFactorAuthFlag);
     FIELD_SET(*this, FIX::NoMsgTypes);

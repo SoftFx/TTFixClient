@@ -110,7 +110,7 @@ void MyApplication::onMessage(const FIX44::MarketDataRequestAck& msg, const FIX:
 {
     FIX::TotalNumMarketSnaps total;
     msg.get(total);
-    std::cout << std::endl << "Subscribed. Total number of snapshots returned " << total.getValue() << std::endl;
+    std::cout << std::endl << "Total number of snapshots returned " << total.getValue() << std::endl;
 }
 
 void MyApplication::onMessage(const FIX44::MarketDataSnapshotFullRefresh& msg, const FIX::SessionID&)
@@ -225,7 +225,7 @@ void MyApplication::run()
                 else
                 {
                     FIX44::MarketDataRequest request;
-                    request.setField(FIX::MDReqID("MarketData_123"));
+                    request.setField(FIX::MDReqID("MD_Subscribe_123"));
                     request.setField(FIX::SubscriptionRequestType(FIX::SubscriptionRequestType_SNAPSHOT_PLUS_UPDATES));
                     request.setField(FIX::MarketDepth(1));
 
@@ -243,11 +243,37 @@ void MyApplication::run()
                     }
 
                     FIX::Session::sendToTarget(request, *m_sessionId);
+                    m_subscribed = true;
                 }
             }
             else if (opt == "us")
             {
-                
+                if (!m_subscribed)
+                {
+                    std::cout << std::endl << "subscribe first" << std::endl;
+                }
+                else
+                {
+                    FIX44::MarketDataRequest request;
+                    request.setField(FIX::MDReqID("MD_Unsubscribe_123"));
+                    request.setField(FIX::SubscriptionRequestType(FIX::SubscriptionRequestType_UNSUBSCRIBE));
+                    request.setField(FIX::MarketDepth(1));
+
+                    request.setField(FIX::NoMDEntryTypes(0));
+                    FIX44::MarketDataRequest::NoMDEntryTypes mdType;
+                    mdType.set(FIX::MDEntryType(FIX::MDEntryType_TRADE));
+                    request.addGroup(mdType);
+
+                    request.setField(FIX::NoRelatedSym(0));
+                    for (int i = 0; i < m_symbols.size(); i++)
+                    {
+                        FIX44::MarketDataRequest::NoRelatedSym symbol;
+                        symbol.set(FIX::Symbol(m_symbols.at(i)));
+                        request.addGroup(symbol);
+                    }
+
+                    FIX::Session::sendToTarget(request, *m_sessionId);
+                }
             }
         }
         catch ( std::exception & e )

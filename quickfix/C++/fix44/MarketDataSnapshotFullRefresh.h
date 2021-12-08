@@ -81,6 +81,7 @@ namespace FIX44
     FIELD_SET(*this, FIX::NetChgPrevDay);
     FIELD_SET(*this, FIX::ApplQueueDepth);
     FIELD_SET(*this, FIX::ApplQueueResolution);
+    FIELD_SET(*this, FIX::IndicativeTick);
     FIELD_SET(*this, FIX::NoUnderlyings);
     class NoUnderlyings: public FIX::Group
     {

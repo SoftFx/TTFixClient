@@ -27,6 +27,7 @@ namespace FIX44
     FIELD_SET(*this, FIX::ClosePosReqID);
     FIELD_SET(*this, FIX::OrderID);
     FIELD_SET(*this, FIX::SecondaryOrderID);
+    FIELD_SET(*this, FIX::ClAppID);
     FIELD_SET(*this, FIX::PosCloseType);
     FIELD_SET(*this, FIX::Quantity);
   };

@@ -252,6 +252,8 @@
    <field name='HandlInst' required='N' />
    <field name='MinQty' required='N' />
    <field name='MaxFloor' required='N' />
+   <field name='HiddenQty' required='N' />
+   <field name='MaxVisibleQty' required='N' />
    <field name='PositionEffect' required='N' />
    <field name='MaxShow' required='N' />
    <field name='BookingType' required='N' />
@@ -310,6 +312,15 @@
    <field name='Magic' required='N' />
    <field name='MarginRateInitial' required='N' />
    <field name='ParentOrderID' required='N' />
+   <field name='ImmediateOrCancelFlag' required='N' />
+   <field name='MarketWithSlippageFlag' required='N' />
+   <field name='CommOpenReducedFlag' required='N' />
+   <field name='CommCloseReducedFlag' required='N' />
+   <field name='TradeRequestID' required='N' />
+   <field name='ReqOpenPrice' required='N' />
+   <field name='ReqOpenQty' required='N' />
+   <field name='ParentOrderType' required='N' />
+   <field name='Slippage' required='N' />
   </message>
   <message name='OrderCancelReject' msgcat='app' msgtype='9'>
    <field name='OrderID' required='Y' />
@@ -352,7 +363,7 @@
    <field name='DeviceID' required='N' />
    <field name='AppSessionID' required='N' />
    <field name='ProtocolSpec' required='N' />
-  <field name='TwoFactorAuthFlag' required='N' />
+   <field name='TwoFactorAuthFlag' required='N' />
   </message>
   <message name='News' msgcat='app' msgtype='B'>
    <field name='OrigTime' required='N' />
@@ -419,6 +430,7 @@
    <component name='Parties' required='N' />
    <field name='TradeOriginationDate' required='N' />
    <field name='TradeDate' required='N' />
+   <field name='ClAppID' required='N' />
    <field name='Account' required='N' />
    <field name='AcctIDSource' required='N' />
    <field name='AccountType' required='N' />
@@ -442,6 +454,8 @@
    <field name='ExecInst' required='N' />
    <field name='MinQty' required='N' />
    <field name='MaxFloor' required='N' />
+   <field name='HiddenQty' required='N' />
+   <field name='MaxVisibleQty' required='N' />
    <field name='ExDestination' required='N' />
    <group name='NoTradingSessions' required='N'>
     <field name='TradingSessionID' required='N' />
@@ -505,6 +519,9 @@
    <component name='Comment' required='N' />
    <component name='Tag' required='N' />
    <field name='Magic' required='N' />
+   <field name='ImmediateOrCancelFlag' required='N' />
+   <field name='MarketWithSlippageFlag' required='N' />
+   <field name='Slippage' required='N' />
   </message>
   <message name='NewOrderList' msgcat='app' msgtype='E'>
    <field name='ListID' required='Y' />
@@ -623,6 +640,7 @@
    <field name='ClOrdLinkID' required='N' />
    <field name='ListID' required='N' />
    <field name='OrigOrdModTime' required='N' />
+   <field name='ClAppID' required='N' />
    <field name='Account' required='N' />
    <field name='AcctIDSource' required='N' />
    <field name='AccountType' required='N' />
@@ -651,6 +669,7 @@
    <field name='ClOrdLinkID' required='N' />
    <field name='ListID' required='N' />
    <field name='OrigOrdModTime' required='N' />
+   <field name='ClAppID' required='N' />
    <field name='Account' required='N' />
    <field name='AcctIDSource' required='N' />
    <field name='AccountType' required='N' />
@@ -674,6 +693,8 @@
    <field name='ExecInst' required='N' />
    <field name='MinQty' required='N' />
    <field name='MaxFloor' required='N' />
+   <field name='HiddenQty' required='N' />
+   <field name='MaxVisibleQty' required='N' />
    <field name='ExDestination' required='N' />
    <group name='NoTradingSessions' required='N'>
     <field name='TradingSessionID' required='N' />
@@ -688,6 +709,7 @@
    <field name='TransactTime' required='Y' />
    <field name='QtyType' required='N' />
    <component name='OrderQtyData' required='Y' />
+   <field name='LeavesQty' required='N' />
    <field name='OrdType' required='Y' />
    <field name='PriceType' required='N' />
    <field name='Price' required='N' />
@@ -732,6 +754,9 @@
    <component name='Comment' required='N' />
    <component name='Tag' required='N' />
    <field name='Magic' required='N' />
+   <field name='ImmediateOrCancelFlag' required='N' />
+   <field name='InFlightMitigationFlag' required='N' />
+   <field name='Slippage' required='N' />
   </message>
   <message name='OrderStatusRequest' msgcat='app' msgtype='H'>
    <field name='OrderID' required='N' />
@@ -1219,6 +1244,7 @@
    </group>
    <field name='ApplQueueDepth' required='N' />
    <field name='ApplQueueResolution' required='N' />
+   <field name='IndicativeTick' required='N' />
   </message>
   <message name='MarketDataIncrementalRefresh' msgcat='app' msgtype='X'>
    <field name='MDReqID' required='N' />
@@ -1489,6 +1515,14 @@
    <field name='TradSesPreCloseTime' required='N' />
    <field name='TradSesCloseTime' required='N' />
    <field name='TradSesEndTime' required='N' />
+   <group name='NoStatusGroups' required='N'>
+    <field name='StatusGroupID' required='Y' />
+    <field name='TradSesStatus' required='Y' />
+    <field name='TradSesStartTime' required='Y' />
+    <field name='TradSesEndTime' required='Y' />
+    <field name='TradSesOpenTime' required='N' />
+    <field name='TradSesCloseTime' required='N' />
+   </group>
    <field name='TotalVolumeTraded' required='N' />
    <field name='Text' required='N' />
    <field name='EncodedTextLen' required='N' />
@@ -2063,6 +2097,8 @@
     <field name='MarginHedge' required='N' />
     <field name='MarginFactor' required='N' />
     <field name='MarginFactorFractional' required='N' />
+    <field name='StopOrderMarginReduction' required='N' />
+    <field name='HiddenLimitOrderMarginReduction' required='N' />
     <field name='TradingSessionID' required='N' />
     <field name='TradingSessionSubID' required='N' />
     <field name='ExpirationCycle' required='N' />
@@ -2078,12 +2114,18 @@
     <field name='CommType' required='N' />
     <field name='CommChargeType' required='N' />
     <field name='CommChargeMethod' required='N' />
+    <field name='MinCommission' required='N' />
+    <field name='MinCommissionCurrency' required='N' />
+    <field name='SwapType' required='N' />
     <field name='SwapSizeShort' required='N' />
     <field name='SwapSizeLong' required='N' />
+    <field name='TripleSwapDay' required='N' />
     <field name='TradeEnabled' required='N' />
     <field name='DefaultSlippage' required='N' />
     <field name='SortOrder' required='N' />
     <field name='GroupSortOrder' required='N' />
+    <field name='StatusGroupID' required='N' />
+    <field name='CloseOnly' required='N' />
    </group>
   </message>
   <message name='DerivativeSecurityListRequest' msgcat='app' msgtype='z'>
@@ -3829,13 +3871,21 @@
     <field name='AccountName' required='N' />
     <field name='RegistEmail' required='N' />
     <field name='RegistDate' required='N' />
+    <field name='ModifyTime' required='N' />
     <component name='Comment' required='N' />
     <component name='Assets' required='N' />
+    <component name='ThrottlingInfo' required='N' />
+    <component name='ThrottlingMethods' required='N' />
+    <field name='ReportCurrency' required='N' />
+    <field name='TokenCommissionCurrency' required='N' />
+    <field name='TokenCommissionCurrencyDiscount' required='N' />
+    <field name='TokenCommissionEnabled' required='N' />
   </message>
   <message name='ClosePositionRequest' msgcat='app' msgtype='U1008'>
     <field name='ClosePosReqID' required='Y' />
     <field name='OrderID' required='N' />
     <field name='SecondaryOrderID' required='N' />
+    <field name='ClAppID' required='N' />
     <field name='PosCloseType' required='Y' />
     <field name='Quantity' required='N' />
   </message>
@@ -3886,6 +3936,7 @@
   </message>
   <message name='TradeTransactionReportRequest' msgcat='app' msgtype='U1015'>
     <field name='TradeRequestID' required='Y' />
+    <field name='TradeRequestType' required='N' />
     <field name='SubscriptionRequestType' required='N' />
     <field name='StrmngDirection' required='N' />
     <field name='StrmngBufSize' required='N' />
@@ -3915,6 +3966,8 @@
     <field name='ActionID' required='N' />
     <field name='ClOrdID' required='N' />
     <field name='OrderQty' required='N' />
+    <field name='HiddenQty' required='N' />
+    <field name='MaxVisibleQty' required='N' />
     <field name='OrderLeavesQty' required='N' />
     <field name='OrderPrice' required='N' />
     <field name='OrderStopPx' required='N' />
@@ -3954,11 +4007,52 @@
     <field name='ParentOrderType' required='N' />
     <field name='ExpireDate' required='N' />
     <field name='ExpireTime' required='N' />
+    <field name='ReqOpenPrice' required='N' />
+    <field name='ReqOpenQty' required='N' />
+    <field name='ReqClosePrice' required='N' />
+    <field name='ReqCloseQty' required='N' />
+    <field name='ImmediateOrCancelFlag' required='N' />
+    <field name='MarketWithSlippageFlag' required='N' />
+    <field name='SrcAssetCurrency' required='N' />
+    <field name='SrcAssetAmount' required='N' />
+    <field name='SrcAssetMovement' required='N' />
+    <field name='DstAssetCurrency' required='N' />
+    <field name='DstAssetAmount' required='N' />
+    <field name='DstAssetMovement' required='N' />
+    <field name='MarginCurrencyToUsdConversionRate' required='N' />
+    <field name='UsdToMarginCurrencyConversionRate' required='N' />
+    <field name='MarginCurrency' required='N' />
+    <field name='ProfitCurrencyToUsdConversionRate' required='N' />
+    <field name='UsdToProfitCurrencyConversionRate' required='N' />
+    <field name='ProfitCurrency' required='N' />
+    <field name='SrcAssetToUsdConversionRate' required='N' />
+    <field name='UsdToSrcAssetConversionRate' required='N' />
+    <field name='DstAssetToUsdConversionRate' required='N' />
+    <field name='UsdToDstAssetConversionRate' required='N' />
+    <field name='CommOpenReducedFlag' required='N' />
+    <field name='CommCloseReducedFlag' required='N' />
+    <field name='MinCommissionCurrency' required='N' />
+    <field name='MinCommissionConversionRate' required='N' />
+    <field name='Slippage' required='N' />
+    <field name='MarginCurrencyToReportConversionRate' required='N' />
+    <field name='ReportToMarginCurrencyConversionRate' required='N' />
+    <field name='ProfitCurrencyToReportConversionRate' required='N' />
+    <field name='ReportToProfitCurrencyConversionRate' required='N' />
+    <field name='SrcAssetToReportConversionRate' required='N' />
+    <field name='ReportToSrcAssetConversionRate' required='N' />
+    <field name='DstAssetToReportConversionRate' required='N' />
+    <field name='ReportToDstAssetConversionRate' required='N' />
+    <field name='ReportCurrency' required='N' />
+    <field name='TokenCommissionCurrency' required='N' />
+    <field name='TokenCommissionCurrencyDiscount' required='N' />
+    <field name='TokenCommissionConversionRate' required='N' />
   </message>
   <message name='ComponentsInfoRequest' msgcat='app' msgtype='U1018'>
+    <field name='CompReqID' required='N' />
     <field name='ClientQuoteHistoryVersion' required='N' />
   </message>
   <message name='ComponentsInfoReport' msgcat='app' msgtype='U1019'>
+    <field name='CompReqID' required='N' />
     <field name='ServerQuoteHistoryVersion' required='N' />
   </message>
   <message name='TwoFactorLogon' msgcat='app' msgtype='U1022'>
@@ -3966,6 +4060,95 @@
     <field name='OneTimePassword' required='N' />
     <field name='ExpireTime' required='N' />
     <field name='Text' required='N' />
+  </message>
+  <message name='TradeServerInfoRequest' msgcat='app' msgtype='U1023'>
+    <field name='TrdSrvReqID' required='Y' />
+  </message>
+  <message name='TradeServerInfoReport' msgcat='app' msgtype='U1024'>
+    <field name='TrdSrvReqID' required='Y' />
+    <field name='CompanyName' required='N' />
+    <field name='CompanyFullName' required='N' />
+    <field name='EncodedCompanyDescriptionLen' required='N' />
+    <field name='EncodedCompanyDescription' required='N' />
+    <field name='CompanyAddress' required='N' />
+    <field name='CompanyEmail' required='N' />
+    <field name='CompanyPhone' required='N' />
+    <field name='CompanyWebSite' required='N' />
+    <field name='ServerName' required='N' />
+    <field name='ServerFullName' required='N' />
+    <field name='EncodedServerDescriptionLen' required='N' />
+    <field name='EncodedServerDescription' required='N' />
+    <field name='ServerAddress' required='N' />
+    <field name='ServerFixFeedSslPort' required='N' />
+    <field name='ServerFixTradeSslPort' required='N' />
+    <field name='ServerWebSocketFeedPort' required='N' />
+    <field name='ServerWebSocketTradePort' required='N' />
+    <field name='ServerRestPort' required='N' />
+  </message>
+  <message name='DailyAccountSnapshotRequest' msgcat='app' msgtype='U1025'>
+    <field name='SnapshotRequestID' required='Y' />
+    <field name='StrmngDirection' required='N' />
+    <field name='StrmngBufSize' required='N' />
+    <field name='StrmngPosID' required='N' />
+    <field name='HstFrom' required='N' />
+    <field name='HstTo' required='N' />
+  </message>
+  <message name='DailyAccountSnapshotRequestAck' msgcat='app' msgtype='U1026'>
+    <field name='SnapshotRequestID' required='Y' />
+    <field name='TotNumTradeReports' required='N' />
+    <field name='CurNumTradeReports' required='N' />
+    <field name='EndOfStrm' required='N' />
+    <field name='SnapshotRequestResult' required='Y' />
+    <field name='Text' required='N' />
+    <field name='EncodedTextLen' required='N' />
+    <field name='EncodedText' required='N' />
+  </message>
+  <message name='DailyAccountSnapshotReport' msgcat='app' msgtype='U1027'>
+    <field name='SnapshotRequestID' required='Y' />
+    <field name='Leverage' required='N' />
+    <field name='Balance' required='N' />
+    <field name='Margin' required='N' />
+    <field name='MarginLevel' required='N' />
+    <field name='Equity' required='N' />
+    <field name='Swap' required='N' />
+    <field name='Profit' required='N' />
+    <field name='Commission' required='N' />
+    <field name='AgentCommission' required='N' />
+    <field name='Currency' required='N' />
+    <field name='Timestamp' required='N' />
+    <field name='Account' required='N' />
+    <field name='AccountingType' required='N' />
+    <field name='AccountValidFlag' required='N' />
+    <field name='AccountBlockedFlag' required='N' />
+    <field name='AccountReadonlyFlag' required='N' />
+    <field name='BalanceCurrencyToUsdConversionRate' required='N' />
+    <field name='UsdToBalanceCurrencyConversionRate' required='N' />
+    <field name='ProfitCurrencyToUsdConversionRate' required='N' />
+    <field name='UsdToProfitCurrencyConversionRate' required='N' />
+    <field name='BalanceCurrencyToReportConversionRate' required='N' />
+    <field name='ReportToBalanceCurrencyConversionRate' required='N' />
+    <field name='ProfitCurrencyToReportConversionRate' required='N' />
+    <field name='ReportToProfitCurrencyConversionRate' required='N' />
+    <component name='Assets' required='N' />
+    <component name='Positions' required='N' />
+    <field name='ReportCurrency' required='N' />
+    <field name='TokenCommissionCurrency' required='N' />
+    <field name='TokenCommissionCurrencyDiscount' required='N' />
+    <field name='TokenCommissionEnabled' required='N' />
+  </message>
+  <message name='MarketDataHistoryInfoRequest' msgcat='app' msgtype='U1028'>
+    <field name='MarketHistReqID' required='Y' />
+    <field name='Symbol' required='Y' />
+    <field name='HstGraphType' required='Y' />
+    <field name='HstGraphPeriodID' required='N' />
+    <field name='ForexPriceType' required='N' />
+  </message>
+  <message name='MarketDataHistoryInfoReport' msgcat='app' msgtype='U1029'>
+    <field name='MarketHistReqID' required='Y' />
+    <field name='Symbol' required='Y' />
+    <field name='AllHstFrom' required='Y' />
+    <field name='AllHstTo' required='Y' />
+    <field name='LastTickId' required='N' />
   </message>
  </messages>
  <trailer>
@@ -4335,6 +4518,36 @@
        <field name='AssetLockedAmt' required='N' />
        <field name='AssetTradeAmt' required='N' />
        <field name='AssetCurrency' required='N' />
+       <field name='SrcAssetToUsdConversionRate' required='N' />
+       <field name='UsdToSrcAssetConversionRate' required='N' />
+       <field name='SrcAssetToReportConversionRate' required='N' />
+       <field name='ReportToSrcAssetConversionRate' required='N' />
+     </group>
+   </component>
+   <component name='Positions'>
+     <group name='NoPositions' required='N'>
+       <field required="Y" name="Symbol"/>
+       <field required="Y" name="Side"/>
+       <field required="Y" name="SettlPrice"/>
+       <field required="Y" name="LeavesQty"/>
+       <field required="N" name="Commission"/>
+       <field required="N" name="Swap"/>
+       <field required="N" name="PosModified"/>
+       <field required='N' name='PosID' />
+       <field required='N' name='Margin'/>
+       <field required='N' name='Profit'/>
+       <field required='N' name='CurrentBestAsk'/>
+       <field required='N' name='CurrentBestBid'/>
+     </group>
+   </component>
+   <component name='ThrottlingInfo'>
+     <field required="Y" name="SessionsPerAccount"/>
+     <field required="Y" name="RequestsPerSecond"/>
+   </component>
+   <component name='ThrottlingMethods'>
+     <group name='ThrottlingMethodsInfo' required='N'>
+       <field required="Y" name="ThrottlingMethod"/>
+       <field required="Y" name="RequestsPerSecond"/>
      </group>
    </component>
  </components>
@@ -4592,6 +4805,13 @@
    <value enum='U1020' description='CURRENCYLISTREQUEST' />
    <value enum='U1021' description='CURRENCYLIST' />
    <value enum='U1022' description='TWOFACTORLOGON' />
+   <value enum='U1023' description='TRADESERVERINFOREQUEST' />
+   <value enum='U1024' description='TRADESERVERINFOREPORT' />
+   <value enum='U1025' description='DAILYACCOUNTSNAPSHOTREQUEST' />
+   <value enum='U1026' description='DAILYACCOUNTSNAPSHOTREQUESTACK' />
+   <value enum='U1027' description='DAILYACCOUNTSNAPSHOTREPORT' />
+   <value enum='U1028' description='MARKETDATAHISTORYINFOREQUEST' />
+   <value enum='U1029' description='MARKETDATAHISTORYINFOREPORT' />
   </field>
   <field number='36' name='NewSeqNo' type='SEQNUM' />
   <field number='37' name='OrderID' type='STRING' />
@@ -4835,17 +5055,12 @@
    <value enum='4' description='UNABLETOPROCESS' />
    <value enum='5' description='ORIGORDMODTIMEMISMATCH' />
    <value enum='6' description='DUPCLORDID' />
+   <value enum='7' description='THROTTLING' />
    <value enum='99' description='OTHER' />
   </field>
   <field number='103' name='OrdRejReason' type='INT'>
    <value enum='0' description='BROKEROPT' />
    <value enum='1' description='UNKNOWNSYM' />
-   <value enum='10' description='INVINVID' />
-   <value enum='11' description='UNSUPPORDERCHAR' />
-   <value enum='12' description='SURVEILLENCE' />
-   <value enum='13' description='INCORRECTQUANTITY' />
-   <value enum='14' description='INCORRECTALLOCATEDQUANTITY' />
-   <value enum='15' description='UNKNOWNACCOUNTS' />
    <value enum='2' description='EXCHCLOSED' />
    <value enum='3' description='EXCEEDSLIM' />
    <value enum='4' description='TOOLATE' />
@@ -4854,6 +5069,15 @@
    <value enum='7' description='DUPLICATEVERBAL' />
    <value enum='8' description='STALE' />
    <value enum='9' description='TRADEALONGREQ' />
+   <value enum='10' description='INVINVID' />
+   <value enum='11' description='UNSUPPORDERCHAR' />
+   <value enum='12' description='SURVEILLENCE' />
+   <value enum='13' description='INCORRECTQUANTITY' />
+   <value enum='14' description='INCORRECTALLOCATEDQUANTITY' />
+   <value enum='15' description='UNKNOWNACCOUNTS' />
+   <value enum='16' description='THROTTLING' />
+   <value enum='17' description='TIMEOUT' />
+   <value enum='18' description='CLOSEONLY' />
    <value enum='99' description='OTHER' />
   </field>
   <field number='104' name='IOIQualifier' type='CHAR'>
@@ -5459,6 +5683,7 @@
    <value enum='A' description='UNSUPPSCOPE' />
    <value enum='B' description='UNSUPPPOSITIONEFFECTSETTLEFLAG' />
    <value enum='C' description='UNSUPPMDIMPLICITDELETE' />
+   <value enum='D' description='THROTTLING' />
   </field>
   <field number='282' name='MDEntryOriginator' type='STRING' />
   <field number='283' name='LocationID' type='STRING' />
@@ -5748,6 +5973,7 @@
    <value enum='5' description='CONDFLDMISS' />
    <value enum='6' description='NOTAUTH' />
    <value enum='7' description='NODELIVTOFIRM' />
+   <value enum='8' description='THROTTLING' />
   </field>
   <field number='381' name='GrossTradeAmt' type='AMT' />
   <field number='382' name='NoContraBrokers' type='NUMINGROUP' />
@@ -7435,6 +7661,7 @@
     <value enum='1' description='UNSUP_SYM' />
     <value enum='2' description='UNSUP_PERIOD' />
     <value enum='3' description='UNSUP_RP_TYPE' />
+    <value enum='4' description='THROTTLING' />
   </field>
   <field number='10023' name='ChunkId' type='INT' />
   <field number='10024' name='ChunksNo' type='INT' />
@@ -7471,6 +7698,7 @@
     <value enum='0' description='SUCCESSFUL' />
     <value enum='1' description='INVALID_OR_UNKNOWN_POSITION' />
     <value enum='2' description='REJECTED' />
+    <value enum='3' description='THROTTLING' />
     <value enum='99' description='OTHER' />
   </field>
   <field number='10047' name='NotifCode' type='INT'>
@@ -7532,6 +7760,7 @@
     <value enum='0' description='SUCCESS' />
     <value enum='1' description='INVALID_SYMBOL' />
     <value enum='2' description='INVALID_PERIODICITY' />
+    <value enum='3' description='THROTTLING' />
     <value enum='99' description='UNKNOWN_ERROR' />
   </field>
   <field number='10072' name='AccBalance' type='AMT' />
@@ -7552,6 +7781,7 @@
     <value enum='5' description='BalanceTrans' />
     <value enum='6' description='Credit' />
     <value enum='7' description='PositionOpened' />
+    <value enum='8' description='OrderActivated' />
   </field>
   <field number='10079' name='TradeTransReason' type='INT'>
     <value enum='0' description='ClientRequest' />
@@ -7563,6 +7793,7 @@
     <value enum='6' description='Rollover' />
     <value enum='7' description='DeleteAccount' />
     <value enum='8' description='Expired' />
+    <value enum='9' description='TransferMoney' />
   </field>
   <field number='10080' name='OrderLeavesQty' type='QTY' />
   <field number='10081' name='OrderPrice' type='PRICE' />
@@ -7588,6 +7819,8 @@
     <value enum='6' description='TIMEOUT_LOGIN' />
     <value enum='7' description='DELETED_LOGIN' />
     <value enum='8' description='SERVER_LOGOUT' />
+    <value enum='9' description='THROTTLING' />
+    <value enum='10' description='MUST_CHANGE_PASSWORD' />
     <value enum='99' description='OTHER' />
   </field>
   <field number='10093' name='PlatformTimezoneOffset' type='INT'>
@@ -7716,6 +7949,7 @@
     <value enum='1' description='MARKET' />
     <value enum='2' description='LIMIT' />
     <value enum='3' description='STOP' />
+    <value enum='4' description='STOPLIMIT' />
   </field>
   <field number='10150' name='DeviceID' type='STRING'/>
   <field number='10151' name='TwoFactorReason' type='CHAR'>
@@ -7724,6 +7958,7 @@
     <value enum='3' description='SERVER_ERROR' />
     <value enum='4' description='CLIENT_RESPONSE' />
     <value enum='5' description='CLIENT_RESUME' />
+    <value enum='6' description='THROTTLING' />
   </field>
   <field number='10152' name='OneTimePassword' type='STRING'/>
   <field number='10153' name='TwoFactorAuthFlag' type='BOOLEAN'>
@@ -7731,8 +7966,150 @@
     <value enum='Y' description='YES' />
   </field>
   <field number='10154' name='AssetLockedAmt' type='AMT' />
-  <field number='10155' name='DefaultSlippage' type='PERCENTAGE' />
+  <field number='10155' name='DefaultSlippage' type='PRICE' />
   <field number='10156' name='CurNumTradeReports' type='INT' />
   <field number='10157' name='AppSessionID' type='STRING'/>
+  <field number='10158' name='ReqOpenPrice' type='PRICE' />
+  <field number='10159' name='ReqOpenQty' type='QTY' />
+  <field number='10160' name='ReqClosePrice' type='PRICE' />
+  <field number='10161' name='ReqCloseQty' type='QTY' />
+  <field number='10162' name='ImmediateOrCancelFlag' type='BOOLEAN'>
+    <value enum='N' description='NO' />
+    <value enum='Y' description='YES' />
+  </field>
+  <field number='10163' name='MarketWithSlippageFlag' type='BOOLEAN'>
+    <value enum='N' description='NO' />
+    <value enum='Y' description='YES' />
+  </field>
+  <field number='10164' name='SrcAssetCurrency' type='STRING'/>
+  <field number='10165' name='SrcAssetAmount' type='QTY'/>
+  <field number='10166' name='SrcAssetMovement' type='QTY'/>
+  <field number='10167' name='DstAssetCurrency' type='STRING'/>
+  <field number='10168' name='DstAssetAmount' type='QTY'/>
+  <field number='10169' name='DstAssetMovement' type='QTY'/>
+  <field number='10170' name='StatusGroupID' type='STRING'/>
+  <field number='10171' name='NoStatusGroups' type='NUMINGROUP' />
+  <field number='10172' name='CompReqID' type='STRING'/>
+  <field number='10173' name='HiddenQty' type='QTY' />
+  <field number='10174' name='ClAppID' type='STRING' />
+  <field number='10175' name='TrdSrvReqID' type='STRING' />
+  <field number='10176' name='CompanyName' type='STRING' />
+  <field number='10177' name='CompanyFullName' type='STRING' />
+  <field number='10178' name='EncodedCompanyDescriptionLen' type='LENGTH' />
+  <field number='10179' name='EncodedCompanyDescription' type='DATA' />
+  <field number='10180' name='CompanyAddress' type='STRING' />
+  <field number='10181' name='CompanyEmail' type='STRING' />
+  <field number='10182' name='CompanyPhone' type='STRING' />
+  <field number='10183' name='CompanyWebSite' type='STRING' />
+  <field number='10184' name='ServerName' type='STRING' />
+  <field number='10185' name='ServerFullName' type='STRING' />
+  <field number='10186' name='EncodedServerDescriptionLen' type='LENGTH' />
+  <field number='10187' name='EncodedServerDescription' type='DATA' />
+  <field number='10188' name='ServerAddress' type='STRING' />
+  <field number='10189' name='ServerFixFeedSslPort' type='INT' />
+  <field number='10190' name='ServerFixTradeSslPort' type='INT' />
+  <field number='10191' name='ServerWebSocketFeedPort' type='INT' />
+  <field number='10192' name='ServerWebSocketTradePort' type='INT' />
+  <field number='10193' name='ServerRestPort' type='INT' />
+  <field number='10194' name='StopOrderMarginReduction' type='FLOAT' />
+  <field number='10195' name='MarginCurrencyToUsdConversionRate' type='FLOAT' />
+  <field number='10196' name='UsdToMarginCurrencyConversionRate' type='FLOAT' />
+  <field number='10197' name='MarginCurrency' type='STRING' />
+  <field number='10198' name='ProfitCurrencyToUsdConversionRate' type='FLOAT' />
+  <field number='10199' name='UsdToProfitCurrencyConversionRate' type='FLOAT' />
+  <field number='10200' name='ProfitCurrency' type='STRING' />
+  <field number='10201' name='SrcAssetToUsdConversionRate' type='FLOAT' />
+  <field number='10202' name='UsdToSrcAssetConversionRate' type='FLOAT' />
+  <field number='10203' name='DstAssetToUsdConversionRate' type='FLOAT' />
+  <field number='10204' name='UsdToDstAssetConversionRate' type='FLOAT' />
+  <field number='10205' name='MaxVisibleQty' type='QTY' />
+  <field number='10206' name='CommOpenReducedFlag' type='BOOLEAN'>
+    <value enum='N' description='NO' />
+    <value enum='Y' description='YES' />
+  </field>
+  <field number='10207' name='CommCloseReducedFlag' type='BOOLEAN'>
+    <value enum='N' description='NO' />
+    <value enum='Y' description='YES' />
+  </field>
+  <field number='10208' name='ModifyTime' type='UTCTIMESTAMP' />
+  <field number='10209' name='HiddenLimitOrderMarginReduction' type='FLOAT' />
+  <field number='10210' name='MinCommission' type='AMT' />
+  <field number='10211' name='MinCommissionCurrency' type='CURRENCY' />
+  <field number='10212' name='SwapType' type='INT'>
+    <value enum='0' description='Points' />
+    <value enum='1' description='PercentPerYear' />
+  </field>
+  <field number='10213' name='TripleSwapDay' type='INT' />
+  <field number='10214' name='MinCommissionConversionRate' type='FLOAT' />
+  <field number='10215' name='InFlightMitigationFlag' type='BOOLEAN'>
+    <value enum='N' description='NO' />
+    <value enum='Y' description='YES' />
+  </field>
+  <field number='10216' name='SnapshotRequestID' type='STRING' />
+  <field number='10217' name='SnapshotRequestResult' type='INT'>
+    <value enum='0' description='SUCCESS' />
+    <value enum='1' description='THROTTLING' />
+    <value enum='99' description='UNKNOWN_ERROR' />
+  </field>
+  <field number='10218' name='AccountReadonlyFlag' type='BOOLEAN'>
+   <value enum='N' description='NO' />
+   <value enum='Y' description='YES' />
+  </field>
+  <field number='10219' name='BalanceCurrencyToUsdConversionRate' type='FLOAT' />
+  <field number='10220' name='UsdToBalanceCurrencyConversionRate' type='FLOAT' />
+  <field number='10221' name='MarginLevel' type='FLOAT' />
+  <field number='10222' name='Timestamp' type='UTCTIMESTAMP' />
+  <field number='10223' name='Profit' type='AMT' />
+  <field number='10224' name='CurrentBestAsk' type='PRICE' />
+  <field number='10225' name='CurrentBestBid' type='PRICE' />
+  <field number='10226' name='SessionsPerAccount' type='INT' />
+  <field number='10227' name='RequestsPerSecond' type='INT' />
+  <field number='10228' name='ThrottlingMethod' type='INT'>
+   <value enum='0' description='Login' />
+   <value enum='1' description='TwoFactor' />
+   <value enum='2' description='SessionInfo' />
+   <value enum='3' description='Currencies' />
+   <value enum='4' description='Symbols' />
+   <value enum='5' description='Ticks' />
+   <value enum='6' description='Level2' />
+   <value enum='7' description='Tickers' />
+   <value enum='8' description='FeedSubscribe' />
+   <value enum='9' description='QuoteHistory' />
+   <value enum='10' description='QuoteHistoryCache' />
+   <value enum='11' description='TradeSessionInfo' />
+   <value enum='12' description='TradeServerInfo' />
+   <value enum='13' description='Account' />
+   <value enum='14' description='Assets' />
+   <value enum='15' description='Positions' />
+   <value enum='16' description='Trades' />
+   <value enum='17' description='TradeCreate' />
+   <value enum='18' description='TradeModify' />
+   <value enum='19' description='TradeDelete' />
+   <value enum='20' description='TradeHistory' />
+   <value enum='21' description='DailyAccountSnapshots' />
+   <value enum='999' description='UnknownMethod' />
+  </field>
+  <field number='10229' name='ThrottlingMethodsInfo' type='NUMINGROUP' />
+  <field number='10230' name='IndicativeTick' type='BOOLEAN'>
+   <value enum='N' description='NO' />
+   <value enum='Y' description='YES' />
+  </field>
+  <field number='10231' name='Slippage' type='FLOAT' />
+  <field number='10232' name='MarginCurrencyToReportConversionRate' type='FLOAT' />
+  <field number='10233' name='ReportToMarginCurrencyConversionRate' type='FLOAT' />
+  <field number='10234' name='ProfitCurrencyToReportConversionRate' type='FLOAT' />
+  <field number='10235' name='ReportToProfitCurrencyConversionRate' type='FLOAT' />
+  <field number='10236' name='SrcAssetToReportConversionRate' type='FLOAT' />
+  <field number='10237' name='ReportToSrcAssetConversionRate' type='FLOAT' />
+  <field number='10238' name='DstAssetToReportConversionRate' type='FLOAT' />
+  <field number='10239' name='ReportToDstAssetConversionRate' type='FLOAT' />
+  <field number='10240' name='BalanceCurrencyToReportConversionRate' type='FLOAT' />
+  <field number='10241' name='ReportToBalanceCurrencyConversionRate' type='FLOAT' />
+  <field number='10242' name='ReportCurrency' type='STRING' />
+  <field number='10243' name='CloseOnly' type='BOOLEAN' />
+  <field number='10244' name='TokenCommissionCurrency' type='STRING' />
+  <field number='10245' name='TokenCommissionCurrencyDiscount' type='FLOAT' />
+  <field number='10246' name='TokenCommissionEnabled' type='BOOLEAN' />
+  <field number='10247' name='TokenCommissionConversionRate' type='FLOAT' />
 </fields>
 </fix>

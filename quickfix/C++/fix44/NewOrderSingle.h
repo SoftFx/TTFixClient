@@ -50,6 +50,7 @@ namespace FIX44
     };
     FIELD_SET(*this, FIX::TradeOriginationDate);
     FIELD_SET(*this, FIX::TradeDate);
+    FIELD_SET(*this, FIX::ClAppID);
     FIELD_SET(*this, FIX::Account);
     FIELD_SET(*this, FIX::AcctIDSource);
     FIELD_SET(*this, FIX::AccountType);
@@ -65,6 +66,8 @@ namespace FIX44
     FIELD_SET(*this, FIX::ExecInst);
     FIELD_SET(*this, FIX::MinQty);
     FIELD_SET(*this, FIX::MaxFloor);
+    FIELD_SET(*this, FIX::HiddenQty);
+    FIELD_SET(*this, FIX::MaxVisibleQty);
     FIELD_SET(*this, FIX::ExDestination);
     FIELD_SET(*this, FIX::ProcessCode);
     FIELD_SET(*this, FIX::Symbol);
@@ -227,6 +230,9 @@ namespace FIX44
     FIELD_SET(*this, FIX::EncodedTagLen);
     FIELD_SET(*this, FIX::EncodedTag);
     FIELD_SET(*this, FIX::Magic);
+    FIELD_SET(*this, FIX::ImmediateOrCancelFlag);
+    FIELD_SET(*this, FIX::MarketWithSlippageFlag);
+    FIELD_SET(*this, FIX::Slippage);
     FIELD_SET(*this, FIX::NoAllocs);
     class NoAllocs: public FIX::Group
     {

@@ -44,6 +44,18 @@ namespace FIX44
     FIELD_SET(*this, FIX::PlatformTimezoneOffset);
     FIELD_SET(*this, FIX::PlatformName);
     FIELD_SET(*this, FIX::PlatformCompany);
+    FIELD_SET(*this, FIX::NoStatusGroups);
+    class NoStatusGroups: public FIX::Group
+    {
+    public:
+    NoStatusGroups() : FIX::Group(10171,10170,FIX::message_order(10170,340,341,345,342,344,0)) {}
+      FIELD_SET(*this, FIX::StatusGroupID);
+      FIELD_SET(*this, FIX::TradSesStatus);
+      FIELD_SET(*this, FIX::TradSesStartTime);
+      FIELD_SET(*this, FIX::TradSesEndTime);
+      FIELD_SET(*this, FIX::TradSesOpenTime);
+      FIELD_SET(*this, FIX::TradSesCloseTime);
+    };
   };
 
 }

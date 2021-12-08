@@ -269,6 +269,8 @@ namespace FIX44
     FIELD_SET(*this, FIX::HandlInst);
     FIELD_SET(*this, FIX::MinQty);
     FIELD_SET(*this, FIX::MaxFloor);
+    FIELD_SET(*this, FIX::HiddenQty);
+    FIELD_SET(*this, FIX::MaxVisibleQty);
     FIELD_SET(*this, FIX::PositionEffect);
     FIELD_SET(*this, FIX::MaxShow);
     FIELD_SET(*this, FIX::BookingType);
@@ -301,11 +303,15 @@ namespace FIX44
     class NoAssets: public FIX::Group
     {
     public:
-    NoAssets() : FIX::Group(10117,10118,FIX::message_order(10118,10154,10119,10120,0)) {}
+    NoAssets() : FIX::Group(10117,10118,FIX::message_order(10118,10154,10119,10120,10201,10202,10236,10237,0)) {}
       FIELD_SET(*this, FIX::AssetBalance);
       FIELD_SET(*this, FIX::AssetLockedAmt);
       FIELD_SET(*this, FIX::AssetTradeAmt);
       FIELD_SET(*this, FIX::AssetCurrency);
+      FIELD_SET(*this, FIX::SrcAssetToUsdConversionRate);
+      FIELD_SET(*this, FIX::UsdToSrcAssetConversionRate);
+      FIELD_SET(*this, FIX::SrcAssetToReportConversionRate);
+      FIELD_SET(*this, FIX::ReportToSrcAssetConversionRate);
     };
     FIELD_SET(*this, FIX::OrdCreated);
     FIELD_SET(*this, FIX::OrdModified);
@@ -317,6 +323,15 @@ namespace FIX44
     FIELD_SET(*this, FIX::Magic);
     FIELD_SET(*this, FIX::MarginRateInitial);
     FIELD_SET(*this, FIX::ParentOrderID);
+    FIELD_SET(*this, FIX::ImmediateOrCancelFlag);
+    FIELD_SET(*this, FIX::MarketWithSlippageFlag);
+    FIELD_SET(*this, FIX::CommOpenReducedFlag);
+    FIELD_SET(*this, FIX::CommCloseReducedFlag);
+    FIELD_SET(*this, FIX::TradeRequestID);
+    FIELD_SET(*this, FIX::ReqOpenPrice);
+    FIELD_SET(*this, FIX::ReqOpenQty);
+    FIELD_SET(*this, FIX::ParentOrderType);
+    FIELD_SET(*this, FIX::Slippage);
     FIELD_SET(*this, FIX::NoContraBrokers);
     class NoContraBrokers: public FIX::Group
     {

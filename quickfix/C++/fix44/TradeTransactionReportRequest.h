@@ -23,6 +23,7 @@ namespace FIX44
     }
 
     FIELD_SET(*this, FIX::TradeRequestID);
+    FIELD_SET(*this, FIX::TradeRequestType);
     FIELD_SET(*this, FIX::SubscriptionRequestType);
     FIELD_SET(*this, FIX::StrmngDirection);
     FIELD_SET(*this, FIX::StrmngBufSize);

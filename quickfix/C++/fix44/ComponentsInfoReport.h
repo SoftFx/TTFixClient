@@ -15,6 +15,7 @@ namespace FIX44
     ComponentsInfoReport(const ComponentsInfoReport& m) : Message(m) {}
     static FIX::MsgType MsgType() { return FIX::MsgType("U1019"); }
 
+    FIELD_SET(*this, FIX::CompReqID);
     FIELD_SET(*this, FIX::ServerQuoteHistoryVersion);
   };
 

@@ -28,15 +28,20 @@
 #endif
 
 #include "MyApplication.h"
+#include "FIX44/CurrencyList.h"
+#include "FIX44/SecurityList.h"
+#include "FIX44/MarketDataRequest.h"
 
-void MyApplication::onLogon( const FIX::SessionID& sessionID )
+void MyApplication::onLogon(const FIX::SessionID& sessionId)
 {
-    std::cout << std::endl << "Logon - " << sessionID << std::endl;
+    std::cout << std::endl << "Logon - " << sessionId << std::endl;
+    m_sessionId = &sessionId;
 }
 
-void MyApplication::onLogout( const FIX::SessionID& sessionID )
+void MyApplication::onLogout(const FIX::SessionID& sessionId)
 {
-    std::cout << std::endl << "Logout - " << sessionID << std::endl;
+    std::cout << std::endl << "Logout - " << sessionId << std::endl;
+    m_sessionId = nullptr;
 }
 
 void MyApplication::onMessage(const FIX44::TwoFactorLogon &msg, const FIX::SessionID &sessionId)
@@ -69,52 +74,181 @@ void MyApplication::onMessage(const FIX44::TwoFactorLogon &msg, const FIX::Sessi
         std::cout << std::endl << "Invalid two factor reason!" << std::endl;
 }
 
-void MyApplication::onMessage( const FIX44::TradingSessionStatus& message, const FIX::SessionID& sessionId)
+void MyApplication::onMessage( const FIX44::TradingSessionStatus& msg, const FIX::SessionID& sessionId)
 {
     std::cout << std::endl << "TradingSessionStatus received!" << std::endl;
-	FIX44::TwoFactorLogon response(FIX::TwoFactorReason_CLIENT_RESUME);
-	FIX::Session::sendToTarget(response, sessionId);
 }
 
-void MyApplication::fromAdmin( const FIX::Message& message, const FIX::SessionID& )
+void MyApplication::onMessage(const FIX44::MarketDataHistoryInfoReport& msg, const FIX::SessionID& sessionId)
+{
+    std::cout << std::endl << "MarketDataHistoryInfoReport received!" << std::endl;
+}
+
+void MyApplication::onMessage(const FIX44::CurrencyList& msg, const FIX::SessionID&)
+{
+    std::cout << std::endl << "CurrencyList: " << msg << std::endl;
+}
+
+void MyApplication::onMessage(const FIX44::SecurityList& msg, const FIX::SessionID&)
+{
+    std::cout << std::endl << "SecurityList: " << msg << std::endl;
+
+    FIX::NoRelatedSym noSym;
+    msg.get(noSym);
+    int count = noSym.getValue();
+    for (int i = 1; i <= count; i++)
+    {
+        FIX44::SecurityList::NoRelatedSym symGrp;
+        msg.getGroup(i, symGrp);
+        FIX::Symbol symbol;
+        symGrp.get(symbol);
+        m_symbols.push_back(symbol.getValue());
+    }
+}
+
+void MyApplication::onMessage(const FIX44::MarketDataRequestAck& msg, const FIX::SessionID&)
+{
+    FIX::TotalNumMarketSnaps total;
+    msg.get(total);
+    std::cout << std::endl << "Subscribed. Total number of snapshots returned " << total.getValue() << std::endl;
+}
+
+void MyApplication::onMessage(const FIX44::MarketDataSnapshotFullRefresh& msg, const FIX::SessionID&)
+{
+    FIX::Symbol symbol;
+    FIX::OrigTime origTime;
+    FIX::TickId tickId;
+    FIX::IndicativeTick indicative;
+    FIX::NoMDEntries noMDEntries;
+
+    msg.get(symbol);
+    msg.get(origTime);
+    msg.get(tickId);
+    msg.get(indicative);
+    std::string ind_str = indicative.getValue() == 1 ? "indicative" : "";
+
+    std::stringstream ss;
+    ss << symbol.getValue() << " " << tickId.getValue() << " " << ind_str;
+
+    msg.get(noMDEntries);
+    int count = noMDEntries.getValue();
+    for (int i = 1; i <= count; i++)
+    {
+        FIX::MDEntryType type;
+        FIX::MDEntryPx price;
+        FIX::MDEntrySize volume;
+
+        FIX44::MarketDataSnapshotFullRefresh::NoMDEntries entry;
+        msg.getGroup(i, entry);
+        entry.get(type);
+        entry.get(price);
+        entry.get(volume);
+        std::string type_str = type.getValue() == '0' ? " Bid: " : " Ask: ";
+        ss << type_str << price.getValue() << " " << volume.getValue();
+    }
+
+    std::cout << std::endl << ss.str() << std::endl;
+}
+
+void MyApplication::fromAdmin( const FIX::Message& msg, const FIX::SessionID& )
     throw( FIX::FieldNotFound, FIX::IncorrectDataFormat, FIX::IncorrectTagValue, FIX::RejectLogon )
 {
-    std::cout << std::endl << "IN: " << message << std::endl;
+    //std::cout << std::endl << "IN: " << msg << std::endl;
 }
 
-void MyApplication::fromApp( const FIX::Message& message, const FIX::SessionID& sessionID )
+void MyApplication::fromApp( const FIX::Message& msg, const FIX::SessionID& sessionId )
     throw( FIX::FieldNotFound, FIX::IncorrectDataFormat, FIX::IncorrectTagValue, FIX::UnsupportedMessageType )
 {
-    std::cout << std::endl << "IN: " << message << std::endl;
-    crack( message, sessionID );
+    //std::cout << std::endl << "IN: " << msg << std::endl;
+    crack(msg, sessionId);
 }
 
-void MyApplication::toAdmin( FIX::Message& message, const FIX::SessionID& )
+void MyApplication::toAdmin( FIX::Message& msg, const FIX::SessionID& )
 {
-    if (FIX::MsgType_Logon == message.getHeader().getField(FIX::FIELD::MsgType))
+    if (FIX::MsgType_Logon == msg.getHeader().getField(FIX::FIELD::MsgType))
     {
-        message.setField(FIX::Username(m_username));
-        message.setField(FIX::Password(m_password));
-        message.setField(FIX::DeviceID(m_deviceId));
-		//message.setField(FIX::AppSessionID(m_appSessionId));
-        message.setField(FIX::ProtocolSpec("ext.1.40"));
+        msg.setField(FIX::Username(m_username));
+        msg.setField(FIX::Password(m_password));
+        msg.setField(FIX::DeviceID(m_deviceId));
+        //msg.setField(FIX::AppSessionID(m_appSessionId));
+        msg.setField(FIX::ProtocolSpec("ext.1.73"));
     }
-    std::cout << std::endl << "OUT: " << message << std::endl;
+    std::cout << std::endl << "OUT: " << msg << std::endl;
 }
 
-void MyApplication::toApp( FIX::Message& message, const FIX::SessionID& sessionID )
-    throw( FIX::DoNotSend )
+void MyApplication::toApp(FIX::Message& msg, const FIX::SessionID& sessionId) throw( FIX::DoNotSend )
 {
-    std::cout << std::endl << "OUT: " << message << std::endl;
+    std::cout << std::endl << "OUT: " << msg << std::endl;
 }
 
 void MyApplication::run()
 {
+    std::cout << std::endl
+    << "c - get currencies" << std::endl
+    << "s - get symbols" << std::endl
+    << "sb - subscribe for all symbols" << std::endl
+    << "us - unsubscribe from all symbols" << std::endl
+    << "e - exit" << std::endl;
+
     while ( true )
     {
         try
         {
             Sleep(3000);
+
+            std::string opt;
+            std::getline(std::cin, opt);
+            if (opt == "e")
+            {
+                return;
+            }
+            if (opt == "c")
+            {
+                FIX44::CurrencyListRequest request;
+                request.setField(FIX::CurrencyReqID("Currencies_123"));
+                request.setField(FIX::CurrencyListRequestType(FIX::CurrencyListRequestType_ALLCURRENCIES));
+                FIX::Session::sendToTarget(request, *m_sessionId);
+            }
+            else if (opt == "s")
+            {
+                FIX44::SecurityListRequest request;
+                request.setField(FIX::SecurityReqID("Securities_123"));
+                request.setField(FIX::SecurityListRequestType(FIX::SecurityListRequestType_ALLSECURITIES));
+                FIX::Session::sendToTarget(request, *m_sessionId);
+            }
+            else if (opt == "sb")
+            {
+                if (m_symbols.empty())
+                {
+                    std::cout << std::endl << "get symbols first" << std::endl;
+                }
+                else
+                {
+                    FIX44::MarketDataRequest request;
+                    request.setField(FIX::MDReqID("MarketData_123"));
+                    request.setField(FIX::SubscriptionRequestType(FIX::SubscriptionRequestType_SNAPSHOT_PLUS_UPDATES));
+                    request.setField(FIX::MarketDepth(1));
+
+                    request.setField(FIX::NoMDEntryTypes(0));
+                    FIX44::MarketDataRequest::NoMDEntryTypes mdType;
+                    mdType.set(FIX::MDEntryType(FIX::MDEntryType_TRADE));
+                    request.addGroup(mdType);
+
+                    request.setField(FIX::NoRelatedSym(0));
+                    for (int i = 0; i < m_symbols.size(); i++)
+                    {
+                        FIX44::MarketDataRequest::NoRelatedSym symbol;
+                        symbol.set(FIX::Symbol(m_symbols.at(i)));
+                        request.addGroup(symbol);
+                    }
+
+                    FIX::Session::sendToTarget(request, *m_sessionId);
+                }
+            }
+            else if (opt == "us")
+            {
+                
+            }
         }
         catch ( std::exception & e )
         {

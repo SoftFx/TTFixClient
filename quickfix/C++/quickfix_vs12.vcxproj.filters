@@ -1974,6 +1974,8 @@
     <ClInclude Include="PUGIXML_DOMDocument.h">
       <Filter>Headers</Filter>
     </ClInclude>
+    <ClInclude Include="fix44\MarketDataHistoryInfoReport.h" />
+    <ClInclude Include="fix44\MarketDataHistoryInfoRequest.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Field">

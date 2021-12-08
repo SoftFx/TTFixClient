@@ -35,6 +35,7 @@ namespace FIX44
     FIELD_SET(*this, FIX::ClOrdLinkID);
     FIELD_SET(*this, FIX::ListID);
     FIELD_SET(*this, FIX::OrigOrdModTime);
+    FIELD_SET(*this, FIX::ClAppID);
     FIELD_SET(*this, FIX::Account);
     FIELD_SET(*this, FIX::AcctIDSource);
     FIELD_SET(*this, FIX::AccountType);

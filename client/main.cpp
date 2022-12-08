@@ -49,33 +49,38 @@ int _tmain(int argc, _TCHAR* argv[])
 
 		FIX::SessionID sessionId("FIX.4.4", std::string("CLIENT_") + CreateGUID(), "EXECUTOR");
 
-#ifdef _DEBUG
 		std::string serverAddress = "beta.tts.st.soft-fx.eu";
-		std::string deviceId = "123456789";
-		std::string appSessionId = "987654321";
 		std::string username = "7788";
 		std::string password = "123qwe!";
-#else
-		std::cout << std::endl << "Enter Server address: " << std::endl;
-		std::string serverAddress;
-		std::getline(std::cin, serverAddress);
 
-		std::cout << std::endl << "Enter DeviceId: " << std::endl;
-		std::string deviceId;
-		std::getline(std::cin, deviceId);
+		std::string deviceId = "123456789";
+		std::string appSessionId = "987654321";
 
-		std::cout << std::endl << "Enter AppSessionId: " << std::endl;
-		std::string appSessionId;
-		std::getline(std::cin, appSessionId);
+//#ifndef _DEBUG
+		if (argc < 4)
+		{
+			std::cout << std::endl << "Enter Server address: " << std::endl;
+			std::getline(std::cin, serverAddress);
 
-		std::cout << std::endl << "Enter Username: " << std::endl;
-		std::string username;
-		std::getline(std::cin, username);
+			std::cout << std::endl << "Enter DeviceId: " << std::endl;
+			std::getline(std::cin, deviceId);
 
-		std::cout << std::endl << "Enter Password: " << std::endl;
-		std::string password;
-		std::getline(std::cin, password);
-#endif // DEBUG
+			std::cout << std::endl << "Enter AppSessionId: " << std::endl;
+			std::getline(std::cin, appSessionId);
+
+			std::cout << std::endl << "Enter Username: " << std::endl;
+			std::getline(std::cin, username);
+
+			std::cout << std::endl << "Enter Password: " << std::endl;
+			std::getline(std::cin, password);
+		}
+		else
+		{
+			serverAddress = argv[1];
+			username = argv[2];
+			password = argv[3];
+		}
+//#endif // DEBUG
 
 		FIX::Dictionary sessionSettings;
 		sessionSettings.setString("SocketConnectHost", serverAddress);

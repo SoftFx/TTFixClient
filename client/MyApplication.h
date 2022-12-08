@@ -46,7 +46,7 @@ class MyApplication :
     std::string m_appSessionId;
     const FIX::SessionID* m_sessionId;
     std::vector<std::string> m_symbols;
-    bool m_subscribed;
+    bool m_subscribedAll;
 
 public:
     MyApplication(std::string username, std::string password, std::string deviceId, std::string appSessionId) :
@@ -55,7 +55,7 @@ public:
         m_deviceId(deviceId),
         m_appSessionId(appSessionId),
         m_sessionId(nullptr),
-        m_subscribed(false)
+        m_subscribedAll(false)
     {
     }
 

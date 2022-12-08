@@ -188,6 +188,8 @@ void MyApplication::run()
     << "s - get symbols" << std::endl
     << "sb - subscribe for all symbols" << std::endl
     << "us - unsubscribe from all symbols" << std::endl
+    << "sbs <symbol> - subscribe for <symbol>" << std::endl
+    << "uss <symbol> - unsubscribe from <symbol>" << std::endl
     << "e - exit" << std::endl;
 
     while ( true )
@@ -225,7 +227,7 @@ void MyApplication::run()
                 else
                 {
                     FIX44::MarketDataRequest request;
-                    request.setField(FIX::MDReqID("MD_Subscribe_123"));
+                    request.setField(FIX::MDReqID("MD_Subscribe_All"));
                     request.setField(FIX::SubscriptionRequestType(FIX::SubscriptionRequestType_SNAPSHOT_PLUS_UPDATES));
                     request.setField(FIX::MarketDepth(1));
 
@@ -243,19 +245,19 @@ void MyApplication::run()
                     }
 
                     FIX::Session::sendToTarget(request, *m_sessionId);
-                    m_subscribed = true;
+                    m_subscribedAll = true;
                 }
             }
             else if (opt == "us")
             {
-                if (!m_subscribed)
+                if (!m_subscribedAll)
                 {
                     std::cout << std::endl << "subscribe first" << std::endl;
                 }
                 else
                 {
                     FIX44::MarketDataRequest request;
-                    request.setField(FIX::MDReqID("MD_Unsubscribe_123"));
+                    request.setField(FIX::MDReqID("MD_Unsubscribe_All"));
                     request.setField(FIX::SubscriptionRequestType(FIX::SubscriptionRequestType_UNSUBSCRIBE));
                     request.setField(FIX::MarketDepth(1));
 
@@ -274,6 +276,56 @@ void MyApplication::run()
 
                     FIX::Session::sendToTarget(request, *m_sessionId);
                 }
+            }
+            else if (opt == "sbs")
+            {
+                std::cout << std::endl << "Symbol: ";
+                std::string smb;
+                std::getline(std::cin, smb);
+
+                FIX44::MarketDataRequest request;
+                request.setField(FIX::MDReqID("MD_Subscribe_Symbol"));
+                request.setField(FIX::SubscriptionRequestType(FIX::SubscriptionRequestType_SNAPSHOT_PLUS_UPDATES));
+                request.setField(FIX::MarketDepth(1));
+
+                request.setField(FIX::NoMDEntryTypes(0));
+                FIX44::MarketDataRequest::NoMDEntryTypes mdType;
+                mdType.set(FIX::MDEntryType(FIX::MDEntryType_TRADE));
+                request.addGroup(mdType);
+
+                request.setField(FIX::NoRelatedSym(0));
+                {
+                    FIX44::MarketDataRequest::NoRelatedSym symbol;
+                    symbol.set(FIX::Symbol(smb));
+                    request.addGroup(symbol);
+                }
+
+                FIX::Session::sendToTarget(request, *m_sessionId);
+            }
+            else if (opt == "uss")
+            {
+                std::cout << std::endl << "Symbol: ";
+                std::string smb;
+                std::getline(std::cin, smb);
+
+                FIX44::MarketDataRequest request;
+                request.setField(FIX::MDReqID("MD_Unsubscribe_Symbol"));
+                request.setField(FIX::SubscriptionRequestType(FIX::SubscriptionRequestType_UNSUBSCRIBE));
+                request.setField(FIX::MarketDepth(1));
+
+                request.setField(FIX::NoMDEntryTypes(0));
+                FIX44::MarketDataRequest::NoMDEntryTypes mdType;
+                mdType.set(FIX::MDEntryType(FIX::MDEntryType_TRADE));
+                request.addGroup(mdType);
+
+                request.setField(FIX::NoRelatedSym(0));
+                {
+                    FIX44::MarketDataRequest::NoRelatedSym symbol;
+                    symbol.set(FIX::Symbol(smb));
+                    request.addGroup(symbol);
+                }
+
+                FIX::Session::sendToTarget(request, *m_sessionId);
             }
         }
         catch ( std::exception & e )

@@ -320,6 +320,7 @@
    <field name='ReqOpenPrice' required='N' />
    <field name='ReqOpenQty' required='N' />
    <field name='ParentOrderType' required='N' />
+   <field name='Slippage' required='N' />
   </message>
   <message name='OrderCancelReject' msgcat='app' msgtype='9'>
    <field name='OrderID' required='Y' />
@@ -520,6 +521,7 @@
    <field name='Magic' required='N' />
    <field name='ImmediateOrCancelFlag' required='N' />
    <field name='MarketWithSlippageFlag' required='N' />
+   <field name='Slippage' required='N' />
   </message>
   <message name='NewOrderList' msgcat='app' msgtype='E'>
    <field name='ListID' required='Y' />
@@ -754,6 +756,7 @@
    <field name='Magic' required='N' />
    <field name='ImmediateOrCancelFlag' required='N' />
    <field name='InFlightMitigationFlag' required='N' />
+   <field name='Slippage' required='N' />
   </message>
   <message name='OrderStatusRequest' msgcat='app' msgtype='H'>
    <field name='OrderID' required='N' />
@@ -1241,6 +1244,7 @@
    </group>
    <field name='ApplQueueDepth' required='N' />
    <field name='ApplQueueResolution' required='N' />
+   <field name='IndicativeTick' required='N' />
   </message>
   <message name='MarketDataIncrementalRefresh' msgcat='app' msgtype='X'>
    <field name='MDReqID' required='N' />
@@ -2121,6 +2125,7 @@
     <field name='SortOrder' required='N' />
     <field name='GroupSortOrder' required='N' />
     <field name='StatusGroupID' required='N' />
+    <field name='CloseOnly' required='N' />
    </group>
   </message>
   <message name='DerivativeSecurityListRequest' msgcat='app' msgtype='z'>
@@ -3869,6 +3874,12 @@
     <field name='ModifyTime' required='N' />
     <component name='Comment' required='N' />
     <component name='Assets' required='N' />
+    <component name='ThrottlingInfo' required='N' />
+    <component name='ThrottlingMethods' required='N' />
+    <field name='ReportCurrency' required='N' />
+    <field name='TokenCommissionCurrency' required='N' />
+    <field name='TokenCommissionCurrencyDiscount' required='N' />
+    <field name='TokenCommissionEnabled' required='N' />
   </message>
   <message name='ClosePositionRequest' msgcat='app' msgtype='U1008'>
     <field name='ClosePosReqID' required='Y' />
@@ -4022,6 +4033,19 @@
     <field name='CommCloseReducedFlag' required='N' />
     <field name='MinCommissionCurrency' required='N' />
     <field name='MinCommissionConversionRate' required='N' />
+    <field name='Slippage' required='N' />
+    <field name='MarginCurrencyToReportConversionRate' required='N' />
+    <field name='ReportToMarginCurrencyConversionRate' required='N' />
+    <field name='ProfitCurrencyToReportConversionRate' required='N' />
+    <field name='ReportToProfitCurrencyConversionRate' required='N' />
+    <field name='SrcAssetToReportConversionRate' required='N' />
+    <field name='ReportToSrcAssetConversionRate' required='N' />
+    <field name='DstAssetToReportConversionRate' required='N' />
+    <field name='ReportToDstAssetConversionRate' required='N' />
+    <field name='ReportCurrency' required='N' />
+    <field name='TokenCommissionCurrency' required='N' />
+    <field name='TokenCommissionCurrencyDiscount' required='N' />
+    <field name='TokenCommissionConversionRate' required='N' />
   </message>
   <message name='ComponentsInfoRequest' msgcat='app' msgtype='U1018'>
     <field name='CompReqID' required='N' />
@@ -4101,8 +4125,30 @@
     <field name='UsdToBalanceCurrencyConversionRate' required='N' />
     <field name='ProfitCurrencyToUsdConversionRate' required='N' />
     <field name='UsdToProfitCurrencyConversionRate' required='N' />
+    <field name='BalanceCurrencyToReportConversionRate' required='N' />
+    <field name='ReportToBalanceCurrencyConversionRate' required='N' />
+    <field name='ProfitCurrencyToReportConversionRate' required='N' />
+    <field name='ReportToProfitCurrencyConversionRate' required='N' />
     <component name='Assets' required='N' />
     <component name='Positions' required='N' />
+    <field name='ReportCurrency' required='N' />
+    <field name='TokenCommissionCurrency' required='N' />
+    <field name='TokenCommissionCurrencyDiscount' required='N' />
+    <field name='TokenCommissionEnabled' required='N' />
+  </message>
+  <message name='MarketDataHistoryInfoRequest' msgcat='app' msgtype='U1028'>
+    <field name='MarketHistReqID' required='Y' />
+    <field name='Symbol' required='Y' />
+    <field name='HstGraphType' required='Y' />
+    <field name='HstGraphPeriodID' required='N' />
+    <field name='ForexPriceType' required='N' />
+  </message>
+  <message name='MarketDataHistoryInfoReport' msgcat='app' msgtype='U1029'>
+    <field name='MarketHistReqID' required='Y' />
+    <field name='Symbol' required='Y' />
+    <field name='AllHstFrom' required='Y' />
+    <field name='AllHstTo' required='Y' />
+    <field name='LastTickId' required='N' />
   </message>
  </messages>
  <trailer>
@@ -4474,6 +4520,8 @@
        <field name='AssetCurrency' required='N' />
        <field name='SrcAssetToUsdConversionRate' required='N' />
        <field name='UsdToSrcAssetConversionRate' required='N' />
+       <field name='SrcAssetToReportConversionRate' required='N' />
+       <field name='ReportToSrcAssetConversionRate' required='N' />
      </group>
    </component>
    <component name='Positions'>
@@ -4490,6 +4538,16 @@
        <field required='N' name='Profit'/>
        <field required='N' name='CurrentBestAsk'/>
        <field required='N' name='CurrentBestBid'/>
+     </group>
+   </component>
+   <component name='ThrottlingInfo'>
+     <field required="Y" name="SessionsPerAccount"/>
+     <field required="Y" name="RequestsPerSecond"/>
+   </component>
+   <component name='ThrottlingMethods'>
+     <group name='ThrottlingMethodsInfo' required='N'>
+       <field required="Y" name="ThrottlingMethod"/>
+       <field required="Y" name="RequestsPerSecond"/>
      </group>
    </component>
  </components>
@@ -4752,6 +4810,8 @@
    <value enum='U1025' description='DAILYACCOUNTSNAPSHOTREQUEST' />
    <value enum='U1026' description='DAILYACCOUNTSNAPSHOTREQUESTACK' />
    <value enum='U1027' description='DAILYACCOUNTSNAPSHOTREPORT' />
+   <value enum='U1028' description='MARKETDATAHISTORYINFOREQUEST' />
+   <value enum='U1029' description='MARKETDATAHISTORYINFOREPORT' />
   </field>
   <field number='36' name='NewSeqNo' type='SEQNUM' />
   <field number='37' name='OrderID' type='STRING' />
@@ -5016,6 +5076,8 @@
    <value enum='14' description='INCORRECTALLOCATEDQUANTITY' />
    <value enum='15' description='UNKNOWNACCOUNTS' />
    <value enum='16' description='THROTTLING' />
+   <value enum='17' description='TIMEOUT' />
+   <value enum='18' description='CLOSEONLY' />
    <value enum='99' description='OTHER' />
   </field>
   <field number='104' name='IOIQualifier' type='CHAR'>
@@ -7731,6 +7793,7 @@
     <value enum='6' description='Rollover' />
     <value enum='7' description='DeleteAccount' />
     <value enum='8' description='Expired' />
+    <value enum='9' description='TransferMoney' />
   </field>
   <field number='10080' name='OrderLeavesQty' type='QTY' />
   <field number='10081' name='OrderPrice' type='PRICE' />
@@ -7757,6 +7820,7 @@
     <value enum='7' description='DELETED_LOGIN' />
     <value enum='8' description='SERVER_LOGOUT' />
     <value enum='9' description='THROTTLING' />
+    <value enum='10' description='MUST_CHANGE_PASSWORD' />
     <value enum='99' description='OTHER' />
   </field>
   <field number='10093' name='PlatformTimezoneOffset' type='INT'>
@@ -7998,5 +8062,54 @@
   <field number='10223' name='Profit' type='AMT' />
   <field number='10224' name='CurrentBestAsk' type='PRICE' />
   <field number='10225' name='CurrentBestBid' type='PRICE' />
+  <field number='10226' name='SessionsPerAccount' type='INT' />
+  <field number='10227' name='RequestsPerSecond' type='INT' />
+  <field number='10228' name='ThrottlingMethod' type='INT'>
+   <value enum='0' description='Login' />
+   <value enum='1' description='TwoFactor' />
+   <value enum='2' description='SessionInfo' />
+   <value enum='3' description='Currencies' />
+   <value enum='4' description='Symbols' />
+   <value enum='5' description='Ticks' />
+   <value enum='6' description='Level2' />
+   <value enum='7' description='Tickers' />
+   <value enum='8' description='FeedSubscribe' />
+   <value enum='9' description='QuoteHistory' />
+   <value enum='10' description='QuoteHistoryCache' />
+   <value enum='11' description='TradeSessionInfo' />
+   <value enum='12' description='TradeServerInfo' />
+   <value enum='13' description='Account' />
+   <value enum='14' description='Assets' />
+   <value enum='15' description='Positions' />
+   <value enum='16' description='Trades' />
+   <value enum='17' description='TradeCreate' />
+   <value enum='18' description='TradeModify' />
+   <value enum='19' description='TradeDelete' />
+   <value enum='20' description='TradeHistory' />
+   <value enum='21' description='DailyAccountSnapshots' />
+   <value enum='999' description='UnknownMethod' />
+  </field>
+  <field number='10229' name='ThrottlingMethodsInfo' type='NUMINGROUP' />
+  <field number='10230' name='IndicativeTick' type='BOOLEAN'>
+   <value enum='N' description='NO' />
+   <value enum='Y' description='YES' />
+  </field>
+  <field number='10231' name='Slippage' type='FLOAT' />
+  <field number='10232' name='MarginCurrencyToReportConversionRate' type='FLOAT' />
+  <field number='10233' name='ReportToMarginCurrencyConversionRate' type='FLOAT' />
+  <field number='10234' name='ProfitCurrencyToReportConversionRate' type='FLOAT' />
+  <field number='10235' name='ReportToProfitCurrencyConversionRate' type='FLOAT' />
+  <field number='10236' name='SrcAssetToReportConversionRate' type='FLOAT' />
+  <field number='10237' name='ReportToSrcAssetConversionRate' type='FLOAT' />
+  <field number='10238' name='DstAssetToReportConversionRate' type='FLOAT' />
+  <field number='10239' name='ReportToDstAssetConversionRate' type='FLOAT' />
+  <field number='10240' name='BalanceCurrencyToReportConversionRate' type='FLOAT' />
+  <field number='10241' name='ReportToBalanceCurrencyConversionRate' type='FLOAT' />
+  <field number='10242' name='ReportCurrency' type='STRING' />
+  <field number='10243' name='CloseOnly' type='BOOLEAN' />
+  <field number='10244' name='TokenCommissionCurrency' type='STRING' />
+  <field number='10245' name='TokenCommissionCurrencyDiscount' type='FLOAT' />
+  <field number='10246' name='TokenCommissionEnabled' type='BOOLEAN' />
+  <field number='10247' name='TokenCommissionConversionRate' type='FLOAT' />
 </fields>
 </fix>

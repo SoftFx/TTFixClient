@@ -1980,6 +1980,87 @@
     <ClInclude Include="fix44\MarketDataHistoryInfoRequest.h">
       <Filter>Message\Headers\fix44</Filter>
     </ClInclude>
+    <ClInclude Include="fix44\AccountInfo.h">
+      <Filter>Message\Headers\fix44</Filter>
+    </ClInclude>
+    <ClInclude Include="fix44\AccountInfoRequest.h">
+      <Filter>Message\Headers\fix44</Filter>
+    </ClInclude>
+    <ClInclude Include="fix44\ClosePositionRequest.h">
+      <Filter>Message\Headers\fix44</Filter>
+    </ClInclude>
+    <ClInclude Include="fix44\ClosePositionRequestAck.h">
+      <Filter>Message\Headers\fix44</Filter>
+    </ClInclude>
+    <ClInclude Include="fix44\ComponentsInfoReport.h">
+      <Filter>Message\Headers\fix44</Filter>
+    </ClInclude>
+    <ClInclude Include="fix44\ComponentsInfoRequest.h">
+      <Filter>Message\Headers\fix44</Filter>
+    </ClInclude>
+    <ClInclude Include="fix44\CurrencyList.h">
+      <Filter>Message\Headers\fix44</Filter>
+    </ClInclude>
+    <ClInclude Include="fix44\CurrencyListRequest.h">
+      <Filter>Message\Headers\fix44</Filter>
+    </ClInclude>
+    <ClInclude Include="fix44\DailyAccountSnapshotReport.h">
+      <Filter>Message\Headers\fix44</Filter>
+    </ClInclude>
+    <ClInclude Include="fix44\DailyAccountSnapshotRequest.h">
+      <Filter>Message\Headers\fix44</Filter>
+    </ClInclude>
+    <ClInclude Include="fix44\DailyAccountSnapshotRequestAck.h">
+      <Filter>Message\Headers\fix44</Filter>
+    </ClInclude>
+    <ClInclude Include="fix44\FileChunk.h">
+      <Filter>Message\Headers\fix44</Filter>
+    </ClInclude>
+    <ClInclude Include="fix44\FileChunkReq.h">
+      <Filter>Message\Headers\fix44</Filter>
+    </ClInclude>
+    <ClInclude Include="fix44\FileChunkReqReject.h">
+      <Filter>Message\Headers\fix44</Filter>
+    </ClInclude>
+    <ClInclude Include="fix44\FileClose.h">
+      <Filter>Message\Headers\fix44</Filter>
+    </ClInclude>
+    <ClInclude Include="fix44\FileOperationAck.h">
+      <Filter>Message\Headers\fix44</Filter>
+    </ClInclude>
+    <ClInclude Include="fix44\MarketDataHistory.h">
+      <Filter>Message\Headers\fix44</Filter>
+    </ClInclude>
+    <ClInclude Include="fix44\MarketDataHistoryMetadataReport.h">
+      <Filter>Message\Headers\fix44</Filter>
+    </ClInclude>
+    <ClInclude Include="fix44\MarketDataHistoryMetadataRequest.h">
+      <Filter>Message\Headers\fix44</Filter>
+    </ClInclude>
+    <ClInclude Include="fix44\MarketDataHistoryRequest.h">
+      <Filter>Message\Headers\fix44</Filter>
+    </ClInclude>
+    <ClInclude Include="fix44\MarketDataHistoryRequestReject.h">
+      <Filter>Message\Headers\fix44</Filter>
+    </ClInclude>
+    <ClInclude Include="fix44\MarketDataRequestAck.h">
+      <Filter>Message\Headers\fix44</Filter>
+    </ClInclude>
+    <ClInclude Include="fix44\TradeTransactionReportRequestAck.h">
+      <Filter>Message\Headers\fix44</Filter>
+    </ClInclude>
+    <ClInclude Include="fix44\TradeServerInfoReport.h">
+      <Filter>Message\Headers\fix44</Filter>
+    </ClInclude>
+    <ClInclude Include="fix44\TradeServerInfoRequest.h">
+      <Filter>Message\Headers\fix44</Filter>
+    </ClInclude>
+    <ClInclude Include="fix44\TradeTransactionReport.h">
+      <Filter>Message\Headers\fix44</Filter>
+    </ClInclude>
+    <ClInclude Include="fix44\TradeTransactionReportRequest.h">
+      <Filter>Message\Headers\fix44</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Field">

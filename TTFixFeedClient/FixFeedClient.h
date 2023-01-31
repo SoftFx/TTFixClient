@@ -43,6 +43,10 @@
 #include "Fix44/MarketDataHistoryMetadataReport.h"
 #include "Fix44/MarketDataHistoryInfoRequest.h"
 #include "Fix44/MarketDataHistoryInfoReport.h"
+#include "Fix44/ComponentsInfoRequest.h"
+#include "Fix44/ComponentsInfoReport.h"
+#include "Fix44/FileChunkReq.h"
+#include "Fix44/FileChunk.h"
 
 namespace TTFixFeedClient
 {
@@ -85,6 +89,8 @@ namespace TTFixFeedClient
         void onMessage(const FIX44::MarketDataHistory&, const FIX::SessionID&);
         void onMessage(const FIX44::MarketDataHistoryMetadataReport&, const FIX::SessionID&);
         void onMessage(const FIX44::MarketDataHistoryInfoReport&, const FIX::SessionID&);
+        void onMessage(const FIX44::ComponentsInfoReport&, const FIX::SessionID&);
+        void onMessage(const FIX44::FileChunk&, const FIX::SessionID&);
 
         void fromAdmin(const FIX::Message&, const FIX::SessionID&) throw(FIX::FieldNotFound, FIX::IncorrectDataFormat, FIX::IncorrectTagValue, FIX::RejectLogon);
         void fromApp(const FIX::Message&, const FIX::SessionID&) throw(FIX::FieldNotFound, FIX::IncorrectDataFormat, FIX::IncorrectTagValue, FIX::UnsupportedMessageType);

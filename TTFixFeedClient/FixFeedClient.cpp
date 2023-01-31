@@ -160,6 +160,43 @@ namespace TTFixFeedClient
         std::cout << std::endl << "IN: " << FixMessage(msg.toString()) << std::endl;
     }
 
+    void FixFeedClient::onMessage(const FIX44::ComponentsInfoReport& msg, const FIX::SessionID& sessionId)
+    {
+        std::cout << std::endl << "IN: " << FixMessage(msg.toString()) << std::endl;
+    }
+
+    void FixFeedClient::onMessage(const FIX44::FileChunk& msg, const FIX::SessionID& sessionId)
+    {
+        //std::cout << std::endl << "IN: " << FixMessage(msg.toString()) << std::endl;
+
+        FIX::FileId fid;
+        FIX::ChunkId cid;
+        FIX::ChunksNo cno;
+        FIX::RawDataLength size;
+        FIX::RawData data;
+
+        msg.get(fid);
+        msg.get(cid);
+        msg.get(cno);
+        msg.get(size);
+        msg.get(data);
+
+        std::string fidValue = fid.getValue();
+        int cidValue = cid.getValue();
+        int cnoValue = cno.getValue();
+        int sizeValue = size.getValue();
+        std::string dataValue = data.getValue();
+
+        std::cout << std::endl << "File ID: " << fidValue << " Chunk ID: " << cidValue << "/" << cnoValue << " Size: " << sizeValue << std::endl;
+
+        const char* dataStr = data.getString().c_str();
+
+        mkdir("FileChunks");
+        std::ofstream ofs(".\\FileChunks\\File_"+fidValue+"_"+cid.getString()+".zip", std::ios_base::app);
+        ofs.write(dataStr, sizeValue);
+        ofs.close();
+    }
+
     void FixFeedClient::fromAdmin(const FIX::Message& msg, const FIX::SessionID&)
         throw(FIX::FieldNotFound, FIX::IncorrectDataFormat, FIX::IncorrectTagValue, FIX::RejectLogon)
     {
@@ -243,7 +280,7 @@ namespace TTFixFeedClient
                     request.setField(FIX::CurrencyReqID("Currencies_123"));
                     request.setField(FIX::CurrencyListRequestType(FIX::CurrencyListRequestType_ALLCURRENCIES));
                     FIX::Session::sendToTarget(request, *m_sessionId);
-                    delay = 3000;
+                    delay = 2000;
                 }
                 else if (cmd == "s")
                 {
@@ -385,8 +422,11 @@ namespace TTFixFeedClient
                 {
                     if (params.size() == 1 || params[1] == "?")
                     {
-                        std::cout << std::endl << "mdh <Symbol> <Period(S1|S10|M1|M5|M15|M30|H1|H4|D1|W1|MN1)> <PriceType(A|B)> <BarsCount> <Timestamp>";
-                        std::cout << std::endl << "Example: mdh EUR/USD H1 A -10 2023-01-23T11:00:00" << std::endl;
+                        std::cout << std::endl << "mdh <ReportType> <Symbol> <Period> <PriceType> <BarsCount> <Timestamp>";
+                        std::cout << std::endl << "ReportType: G - fix groups (Bars, by default); F - compressed file (ZIP);";
+                        std::cout << std::endl << "Period : S1|S10|M1|M5|M15|M30|H1|H4|D1|W1|MN1;";
+                        std::cout << std::endl << "PriceType: A - Ask; B - Bid;";
+                        std::cout << std::endl << "Example: mdh EUR/USD H1 A -10 2023-01-23T11:00:00 F" << std::endl;
                         continue;
                     }
                     else if (params.size() < 6)
@@ -402,6 +442,7 @@ namespace TTFixFeedClient
                     std::tm time;
                     std::istringstream isst(params[5]);
                     isst >> std::get_time(&time, "%Y-%m-%dT%H:%M:%S");
+                    char rpt = params.size() == 7 ? params[6].at(0) : 'G';
 
                     FIX44::MarketDataHistoryRequest request;
                     request.setField(FIX::MarketHistReqID("MD_History"));
@@ -410,7 +451,7 @@ namespace TTFixFeedClient
                     request.setField(FIX::ForexPriceType(prt));
                     request.setField(FIX::HstReqBars(cnt));
                     request.setField(FIX::HstTo(FIX::UTCTIMESTAMP(&time)));
-                    request.setField(FIX::HstReportType(FIX::HstReportType_FIXGROUPS));
+                    request.setField(FIX::HstReportType(rpt));
                     request.setField(FIX::HstGraphType(FIX::HstGraphType_BARS));
 
                     FIX::Session::sendToTarget(request, *m_sessionId);
@@ -474,8 +515,36 @@ namespace TTFixFeedClient
                 }
                 else if (cmd == "fc")
                 {
-                    std::cout << std::endl << "Not implemented yet" << std::endl;
-                    continue;
+                    if (params.size() == 1 || params[1] == "?")
+                    {
+                        std::cout << std::endl << "fc <FileId> <ChunkNo>";
+                        std::cout << std::endl << "Example: fc b3bed14d-14ed-4c8e-b5fb-54c2ab754436 0" << std::endl;
+                        continue;
+                    }
+                    else if (params.size() < 3)
+                    {
+                        std::cout << std::endl << "Invalid params count" << std::endl;
+                        continue;
+                    }
+
+                    std::string fid = params[1];
+                    int cid = std::stoi(params[2]);
+
+                    FIX44::FileChunkReq request;
+                    request.setField(FIX::FileId(fid));
+                    request.setField(FIX::ChunkId(cid));
+
+                    FIX::Session::sendToTarget(request, *m_sessionId);
+                    delay = 5000;
+                }
+                else if (cmd == "ci")
+                {
+                    int qhv = std::stoi(params[1]);
+                    FIX44::ComponentsInfoRequest request;
+                    request.setField(FIX::CompReqID("Components_Info"));
+                    request.setField(FIX::ClientQuoteHistoryVersion(qhv));
+                    FIX::Session::sendToTarget(request, *m_sessionId);
+                    delay = 2000;
                 }
             }
             catch (std::exception& e)

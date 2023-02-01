@@ -9,27 +9,18 @@
 #include "FIX44/Logon.h"
 #include "FIX44/TradingSessionStatus.h"
 #include "FIX44/TwoFactorLogon.h"
-#include "FIX44/CurrencyListRequest.h"
-#include "FIX44/CurrencyList.h"
-#include "FIX44/SecurityListRequest.h"
-#include "FIX44/SecurityList.h"
-#include "FIX44/MarketDataRequest.h"
-#include "FIX44/MarketDataRequestAck.h"
-#include "FIX44/MarketDataSnapshotFullRefresh.h"
-#include "FIX44/MarketDataHistoryRequest.h"
-#include "FIX44/MarketDataHistory.h"
-#include "Fix44/MarketDataHistoryMetadataRequest.h"
-#include "Fix44/MarketDataHistoryMetadataReport.h"
-#include "Fix44/MarketDataHistoryInfoRequest.h"
-#include "Fix44/MarketDataHistoryInfoReport.h"
-#include "Fix44/ComponentsInfoRequest.h"
-#include "Fix44/ComponentsInfoReport.h"
-#include "Fix44/FileChunkReq.h"
-#include "Fix44/FileChunk.h"
+#include "FIX44/AccountInfoRequest.h"
+#include "FIX44/AccountInfo.h"
+#include "FIX44/OrderMassStatusRequest.h"
+#include "FIX44/RequestForPositions.h"
+#include "FIX44/RequestForPositionsAck.h"
+#include "FIX44/PositionReport.h"
+#include "FIX44/NewOrderSingle.h"
+#include "FIX44/ExecutionReport.h"
 
-namespace TTFixFeedClient
+namespace TTFixTradeClient
 {
-    class FixFeedClient :
+    class FixTradeClient :
         public FIX::Application,
         public FIX44::MessageCracker
     {
@@ -42,7 +33,7 @@ namespace TTFixFeedClient
         bool m_subscribedAll;
 
     public:
-        FixFeedClient(std::string username, std::string password, std::string deviceId, std::string appSessionId) :
+        FixTradeClient(std::string username, std::string password, std::string deviceId, std::string appSessionId) :
             m_username(username),
             m_password(password),
             m_deviceId(deviceId),
@@ -61,15 +52,9 @@ namespace TTFixFeedClient
 
         void onMessage(const FIX44::TwoFactorLogon&, const FIX::SessionID&);
         void onMessage(const FIX44::TradingSessionStatus&, const FIX::SessionID&);
-        void onMessage(const FIX44::CurrencyList&, const FIX::SessionID&);
-        void onMessage(const FIX44::SecurityList&, const FIX::SessionID&);
-        void onMessage(const FIX44::MarketDataRequestAck&, const FIX::SessionID&);
-        void onMessage(const FIX44::MarketDataSnapshotFullRefresh&, const FIX::SessionID&);
-        void onMessage(const FIX44::MarketDataHistory&, const FIX::SessionID&);
-        void onMessage(const FIX44::MarketDataHistoryMetadataReport&, const FIX::SessionID&);
-        void onMessage(const FIX44::MarketDataHistoryInfoReport&, const FIX::SessionID&);
-        void onMessage(const FIX44::ComponentsInfoReport&, const FIX::SessionID&);
-        void onMessage(const FIX44::FileChunk&, const FIX::SessionID&);
+        void onMessage(const FIX44::AccountInfo&, const FIX::SessionID&);
+        void onMessage(const FIX44::ExecutionReport&, const FIX::SessionID&);
+        void onMessage(const FIX44::PositionReport&, const FIX::SessionID&);
 
         void fromAdmin(const FIX::Message&, const FIX::SessionID&) throw(FIX::FieldNotFound, FIX::IncorrectDataFormat, FIX::IncorrectTagValue, FIX::RejectLogon);
         void fromApp(const FIX::Message&, const FIX::SessionID&) throw(FIX::FieldNotFound, FIX::IncorrectDataFormat, FIX::IncorrectTagValue, FIX::UnsupportedMessageType);

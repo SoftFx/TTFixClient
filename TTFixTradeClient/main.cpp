@@ -9,11 +9,11 @@
 #include "SocketInitiator.h"
 #include "SessionSettings.h"
 
-#include "FixFeedClient.h"
+#include "FixTradeClient.h"
 #include "FixFileLog.h"
 #include "FixMessage.h"
 
-using namespace TTFixFeedClient;
+using namespace TTFixTradeClient;
 
 std::string CreateGUID()
 {
@@ -52,10 +52,10 @@ int _tmain(int argc, _TCHAR* argv[])
         defaults.setString("ValidateFieldsHaveValues", "N");
 
         std::string id = CreateGUID();
-        FIX::SessionID sessionId("FIX.4.4", std::string("CLIENT_FEED_") + id, "EXECUTOR");
+        FIX::SessionID sessionId("FIX.4.4", std::string("CLIENT_TRADE_") + id, "EXECUTOR");
 
         std::string serverAddress = "localhost";
-        std::string username = "100";
+        std::string username = "200";
         std::string password = "123qwe!";
 
         std::string deviceId = "123456789";
@@ -89,13 +89,13 @@ int _tmain(int argc, _TCHAR* argv[])
 
         FIX::Dictionary sessionSettings;
         sessionSettings.setString("SocketConnectHost", serverAddress);
-        sessionSettings.setString("SocketConnectPort", "5001");
+        sessionSettings.setString("SocketConnectPort", "5002");
 
         FIX::SessionSettings settings;
         settings.set(defaults);
         settings.set(sessionId, sessionSettings);
 
-        FixFeedClient application(username, password, deviceId, appSessionId);
+        FixTradeClient application(username, password, deviceId, appSessionId);
 
         _mkdir("Log");
         FixMessage::LoadDictionary("FIX44.xml");

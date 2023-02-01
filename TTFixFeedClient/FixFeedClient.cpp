@@ -1,24 +1,3 @@
-/* -*- C++ -*- */
-
-/****************************************************************************
-** Copyright (c) quickfixengine.org  All rights reserved.
-**
-** This file is part of the QuickFIX FIX Engine
-**
-** This file may be distributed under the terms of the quickfixengine.org
-** license as defined by quickfixengine.org and appearing in the file
-** LICENSE included in the packaging of this file.
-**
-** This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
-** WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
-**
-** See http://www.quickfixengine.org/LICENSE for licensing information.
-**
-** Contact ask@quickfixengine.org if any conditions of this licensing are
-** not clear to you.
-**
-****************************************************************************/
-
 #include "stdafx.h"
 
 #ifdef _MSC_VER
@@ -191,7 +170,7 @@ namespace TTFixFeedClient
 
         const char* dataStr = data.getString().c_str();
 
-        mkdir("FileChunks");
+        _mkdir("FileChunks");
         std::ofstream ofs(".\\FileChunks\\File_"+fidValue+"_"+cid.getString()+".zip", std::ios_base::app);
         ofs.write(dataStr, sizeValue);
         ofs.close();
@@ -218,7 +197,7 @@ namespace TTFixFeedClient
             msg.setField(FIX::Password(m_password));
             msg.setField(FIX::DeviceID(m_deviceId));
             //msg.setField(FIX::AppSessionID(m_appSessionId));
-            msg.setField(FIX::ProtocolSpec("ext.1.73"));
+            msg.setField(FIX::ProtocolSpec("ext.1.72"));
         }
         //std::cout << std::endl << "OUT: " << FixMessage(msg.toString()) << std::endl;
     }
@@ -422,10 +401,10 @@ namespace TTFixFeedClient
                 {
                     if (params.size() == 1 || params[1] == "?")
                     {
-                        std::cout << std::endl << "mdh <ReportType> <Symbol> <Period> <PriceType> <BarsCount> <Timestamp>";
-                        std::cout << std::endl << "ReportType: G - fix groups (Bars, by default); F - compressed file (ZIP);";
-                        std::cout << std::endl << "Period : S1|S10|M1|M5|M15|M30|H1|H4|D1|W1|MN1;";
-                        std::cout << std::endl << "PriceType: A - Ask; B - Bid;";
+                        std::cout << std::endl << "mdh <Symbol> <Period> <PriceType> <BarsCount> <Timestamp> <ReportType>";
+                        std::cout << std::endl << "Period: S1 | S10 | M1 | M5 |M15 | M30 | H1 | H4 | D1 | W1 | MN1;";
+                        std::cout << std::endl << "PriceType: A - Ask | B - Bid;";
+                        std::cout << std::endl << "ReportType: G - fix groups (Bars, by default) | F - compressed file (ZIP);";
                         std::cout << std::endl << "Example: mdh EUR/USD H1 A -10 2023-01-23T11:00:00 F" << std::endl;
                         continue;
                     }

@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="FixTradeClient.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="stdafx.cpp" />
+    <ClCompile Include="FixFileLog.cpp">
+      <Filter>FixExtensions</Filter>
+    </ClCompile>
+    <ClCompile Include="FixMessage.cpp">
+      <Filter>FixExtensions</Filter>
+    </ClCompile>
+    <ClCompile Include="FixFieldFormatter.cpp">
+      <Filter>FixExtensions</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="FixTradeClient.h" />
+    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="FixFileLog.h">
+      <Filter>FixExtensions</Filter>
+    </ClInclude>
+    <ClInclude Include="FixMessage.h">
+      <Filter>FixExtensions</Filter>
+    </ClInclude>
+    <ClInclude Include="FixFieldFormatter.h">
+      <Filter>FixExtensions</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="FIX44.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="FixExtensions">
+      <UniqueIdentifier>{56FE4F8B-89B8-4CA9-B696-FA80B49E2A16}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

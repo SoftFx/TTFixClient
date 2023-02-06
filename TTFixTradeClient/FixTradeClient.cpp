@@ -11,6 +11,22 @@
 
 namespace TTFixTradeClient
 {
+    std::string CreateGUID()
+    {
+        GUID guid;
+        CoCreateGuid(&guid);
+
+        char guidStr[37];
+        sprintf_s(
+            guidStr,
+            "%08lX-%04hX-%04hX-%02hhX%02hhX-%02hhX%02hhX%02hhX%02hhX%02hhX%02hhX",
+            guid.Data1, guid.Data2, guid.Data3,
+            guid.Data4[0], guid.Data4[1], guid.Data4[2], guid.Data4[3],
+            guid.Data4[4], guid.Data4[5], guid.Data4[6], guid.Data4[7]);
+
+        return std::string(guidStr);
+    }
+
     void FixTradeClient::onLogon(const FIX::SessionID& sessionId)
     {
         std::cout << std::endl << "Logon - " << sessionId << std::endl;
@@ -139,7 +155,7 @@ namespace TTFixTradeClient
     void printNewOrderHelp(const std::string& title, const std::string& cmd, const std::string& p)
     {
         std::cout << std::endl << title;
-        std::cout << std::endl << cmd << " <Symbol> <Qty> " << p << " [<t:TimeInForce> <e:ExpireTime> <sl:StopLoss> <tp:TakeProfit> <s:Slippage>]";
+        std::cout << std::endl << cmd << " <Symbol> <Qty> " << p << " [<t:TimeInForce> <e:ExpireTime> <sl:StopLoss> <tp:TakeProfit> <s:Slippage> <c:ClientOrderId>]";
         std::cout << std::endl << "TimeInForce: gtc - Good Till Cancel | gtd - Good Till Date | ioc - Immediate Or Cancel";
         std::cout << std::endl << "ExpireTime format YYYY-mm-ddTHH:MM:SS";
         std::cout << std::endl << "Examples:";
@@ -151,13 +167,16 @@ namespace TTFixTradeClient
 
     void SendNewOrderSingle(const FIX::SessionID& session, const std::string& symbol, char side, char type,
         double qty, double price, double stopPrice = 0.0, double sl = 0.0, double tp = 0.0,
-        char timeInForce = FIX::TimeInForce_GOOD_TILL_CANCEL, const std::tm* expTime = nullptr, double slippage = 0.0)
+        char timeInForce = FIX::TimeInForce_GOOD_TILL_CANCEL, const std::tm* expTime = nullptr, double slippage = 0.0, std::string clOrdId = "")
     {
         FIX::UtcTimeStamp utcNow;
 
         FIX44::NewOrderSingle request;
 
-        request.setField(FIX::ClOrdID("123456"));
+        if (clOrdId.empty())
+            request.setField(FIX::ClOrdID(CreateGUID()));
+        else
+            request.setField(FIX::ClOrdID(clOrdId));
 
         request.setField(FIX::OrdType(type));
         request.setField(FIX::Side(side));
@@ -192,6 +211,7 @@ namespace TTFixTradeClient
         double sl = 0.0;
         double tp = 0.0;
         double slippage = 0.0;
+        std::string clOrdId;
 
         for (int i = 4; i < params.size(); i++)
         {
@@ -215,9 +235,13 @@ namespace TTFixTradeClient
             {
                 slippage = std::stod(value);
             }
+            else if (key == "c")
+            {
+                clOrdId = value;
+            }
         }
 
-        SendNewOrderSingle(session, symbol, FIX::OrdType_MARKET, side, qty, price, 0.0, sl, tp, 0, nullptr, slippage);
+        SendNewOrderSingle(session, symbol, FIX::OrdType_MARKET, side, qty, price, 0.0, sl, tp, 0, nullptr, slippage, clOrdId);
     }
 
     void SendNewLimitOrder(const FIX::SessionID& session, char side, const std::vector<std::string>& params)
@@ -231,6 +255,7 @@ namespace TTFixTradeClient
         double slippage = 0.0;
         std::tm expTime;
         std::tm* p_expTime = nullptr;
+        std::string clOrdId;
 
         for (int i = 4; i < params.size(); i++)
         {
@@ -263,9 +288,13 @@ namespace TTFixTradeClient
             {
                 slippage = std::stod(value);
             }
+            else if (key == "c")
+            {
+                clOrdId = value;
+            }
         }
 
-        SendNewOrderSingle(session, symbol, side, FIX::OrdType_LIMIT, qty, price, 0.0, sl, tp, tif, p_expTime, slippage);
+        SendNewOrderSingle(session, symbol, side, FIX::OrdType_LIMIT, qty, price, 0.0, sl, tp, tif, p_expTime, slippage, clOrdId);
     }
 
     void SendNewStopOrder(const FIX::SessionID& session, char side, const std::vector<std::string>& params)
@@ -279,6 +308,7 @@ namespace TTFixTradeClient
         double slippage = 0.0;
         std::tm expTime;
         std::tm* p_expTime = nullptr;
+        std::string clOrdId;
 
         for (int i = 4; i < params.size(); i++)
         {
@@ -311,9 +341,13 @@ namespace TTFixTradeClient
             {
                 slippage = std::stod(value);
             }
+            else if (key == "c")
+            {
+                clOrdId = value;
+            }
         }
 
-        SendNewOrderSingle(session, symbol, FIX::OrdType_STOP, side, qty, 0.0, stopPrice, sl, tp, tif, p_expTime, slippage);
+        SendNewOrderSingle(session, symbol, FIX::OrdType_STOP, side, qty, 0.0, stopPrice, sl, tp, tif, p_expTime, slippage, clOrdId);
     }
 
     void FixTradeClient::run()
@@ -367,19 +401,21 @@ namespace TTFixTradeClient
                 else if (cmd == "p")
                 {
                     FIX::UtcTimeStamp utcNow;
-                    FIX::DatedDate now;
+                    FIX::DateTime now;
 
                     FIX44::RequestForPositions request;
                     request.setField(FIX::PosReqID("Request_For_Positions"));
                     request.setField(FIX::PosReqType(FIX::PosReqType_POSITIONS));
-                    //request.setField(FIX::SubscriptionRequestType(FIX::SubscriptionRequestType_SNAPSHOT));
-                    request.setField(FIX::Account());
+                    request.setField(FIX::SubscriptionRequestType(FIX::SubscriptionRequestType_SNAPSHOT));
+                    request.setField(FIX::Account("200"));
                     request.setField(FIX::AccountType(FIX::AccountType_ACCOUNTCUSTOMER));
-                    request.setField(FIX::TransactTime(utcNow));
-                    request.setField(FIX::ClearingBusinessDate(now));
 
-                    //FIX::Session::sendToTarget(request, *m_sessionId);
-                    //delay = 3000;
+                    FIX::TransactTime trTime(utcNow);
+                    request.setField(trTime);
+                    request.setField(FIX::ClearingBusinessDate(trTime.getString()));
+
+                    FIX::Session::sendToTarget(request, *m_sessionId);
+                    delay = 3000;
                 }
                 else if (cmd == "nobm")
                 {
@@ -484,8 +520,39 @@ namespace TTFixTradeClient
                 }
                 else if (cmd == "co")
                 {
-                    std::cout << std::endl << "Cancel order is not implemented yet" << std::endl;
-                    continue;
+                    if (params.size() == 1 || params[1] == "?")
+                    {
+                        std::cout << std::endl << "Cancel Order";
+                        std::cout << std::endl << "co <Side> <ClientOrderId> [<OrderId>]";
+                        std::cout << std::endl << "Side: 1 - Buy; 2 - Sell";
+                        std::cout << std::endl << "Examples:";
+                        std::cout << std::endl << "co 2 My_favorite_sell_order";
+                        std::cout << std::endl << "co 1 My_favorite_buy_order 456789";
+                        continue;
+                    }
+                    else if (params.size() < 3)
+                    {
+                        std::cout << std::endl << "Invalid params count" << std::endl;
+                        continue;
+                    }
+
+                    char side = params[1][0];
+                    std::string clientOrderId = params[2];
+                    std::string orderId;
+                    if (params.size() > 3)
+                        orderId = params[3];
+
+                    FIX::UtcTimeStamp utcNow;
+                    FIX44::OrderCancelRequest request;
+                    request.setField(FIX::ClOrdID("Cancel_Order"));
+                    request.setField(FIX::OrigClOrdID(clientOrderId));
+                    if (!orderId.empty())
+                        request.setField(FIX::OrderID(orderId));
+                    request.setField(FIX::Side(side));
+                    request.setField(FIX::TransactTime(utcNow));
+
+                    FIX::Session::sendToTarget(request, *m_sessionId);
+                    delay = 3000;
                 }
                 else if (cmd == "cp")
                 {

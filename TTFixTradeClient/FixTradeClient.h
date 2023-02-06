@@ -17,9 +17,13 @@
 #include "FIX44/PositionReport.h"
 #include "FIX44/NewOrderSingle.h"
 #include "FIX44/ExecutionReport.h"
+#include "FIX44/OrderCancelReplaceRequest.h"
+#include "FIX44/OrderCancelRequest.h"
 
 namespace TTFixTradeClient
 {
+    std::string CreateGUID();
+
     class FixTradeClient :
         public FIX::Application,
         public FIX44::MessageCracker

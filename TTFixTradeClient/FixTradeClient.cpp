@@ -145,17 +145,17 @@ namespace TTFixTradeClient
     void printNewMarketOrderHelp(const std::string& title, const std::string& cmd)
     {
         std::cout << std::endl << title;
-        std::cout << std::endl << cmd << " <Symbol> <Qty> [<p:Price> <sl:StopLoss> <tp:TakeProfit> <s:Slippage>]";
+        std::cout << std::endl << cmd << " <Symbol> <Qty> [<sl:StopLoss> <tp:TakeProfit> <p:Price> <s:Slippage> <com:Comment>]";
         std::cout << std::endl << "Examples:";
         std::cout << std::endl << cmd << " EUR/USD 100000";
-        std::cout << std::endl << cmd << " EUR/USD 100000 p:1.08836 sl:1.08821 tp:1.008898";
-        std::cout << std::endl << cmd << " EUR/USD 100000 1.08836 s:0.05";
+        std::cout << std::endl << cmd << " EUR/USD 100000 sl:1.08821 tp:1.008898";
+        std::cout << std::endl << cmd << " EUR/USD 100000 p:1.08836 s:0.05 com:User_comment";
     }
 
     void printNewOrderHelp(const std::string& title, const std::string& cmd, const std::string& p)
     {
         std::cout << std::endl << title;
-        std::cout << std::endl << cmd << " <Symbol> <Qty> " << p << " [<t:TimeInForce> <e:ExpireTime> <sl:StopLoss> <tp:TakeProfit> <s:Slippage> <c:ClientOrderId>]";
+        std::cout << std::endl << cmd << " <Symbol> <Qty> " << p << " [<t:TimeInForce> <e:ExpireTime> <sl:StopLoss> <tp:TakeProfit> <s:Slippage> <c:ClientOrderId> <com:Comment>]";
         std::cout << std::endl << "TimeInForce: gtc - Good Till Cancel | gtd - Good Till Date | ioc - Immediate Or Cancel";
         std::cout << std::endl << "ExpireTime format YYYY-mm-ddTHH:MM:SS";
         std::cout << std::endl << "Examples:";
@@ -167,7 +167,7 @@ namespace TTFixTradeClient
 
     void SendNewOrderSingle(const FIX::SessionID& session, const std::string& symbol, char side, char type,
         double qty, double price, double stopPrice = 0.0, double sl = 0.0, double tp = 0.0,
-        char timeInForce = FIX::TimeInForce_GOOD_TILL_CANCEL, const std::tm* expTime = nullptr, double slippage = 0.0, std::string clOrdId = "")
+        char timeInForce = FIX::TimeInForce_GOOD_TILL_CANCEL, const std::tm* expTime = nullptr, double slippage = 0.0, std::string clOrdId = "", std::string comment = "")
     {
         FIX::UtcTimeStamp utcNow;
 
@@ -198,6 +198,12 @@ namespace TTFixTradeClient
         if (slippage > 0)
             request.setField(FIX::Slippage(slippage));
 
+        if (!comment.empty())
+        {
+            request.setField(FIX::EncodedCommentLen(comment.length()));
+            request.setField(FIX::EncodedComment(comment));
+        }
+
         request.setField(FIX::TransactTime(utcNow));
 
         FIX::Session::sendToTarget(request, session);
@@ -212,8 +218,9 @@ namespace TTFixTradeClient
         double tp = 0.0;
         double slippage = 0.0;
         std::string clOrdId;
+        std::string clComment;
 
-        for (int i = 4; i < params.size(); i++)
+        for (int i = 3; i < params.size(); i++)
         {
             std::string param = params[i];
             size_t sidx = param.find_first_of(':');
@@ -239,9 +246,13 @@ namespace TTFixTradeClient
             {
                 clOrdId = value;
             }
+            else if (key == "com")
+            {
+                clComment = value;
+            }
         }
 
-        SendNewOrderSingle(session, symbol, FIX::OrdType_MARKET, side, qty, price, 0.0, sl, tp, 0, nullptr, slippage, clOrdId);
+        SendNewOrderSingle(session, symbol, FIX::OrdType_MARKET, side, qty, price, 0.0, sl, tp, FIX::TimeInForce_GOOD_TILL_CANCEL, nullptr, slippage, clOrdId, clComment);
     }
 
     void SendNewLimitOrder(const FIX::SessionID& session, char side, const std::vector<std::string>& params)
@@ -256,6 +267,7 @@ namespace TTFixTradeClient
         std::tm expTime;
         std::tm* p_expTime = nullptr;
         std::string clOrdId;
+        std::string clComment;
 
         for (int i = 4; i < params.size(); i++)
         {
@@ -269,6 +281,8 @@ namespace TTFixTradeClient
                     tif = FIX::TimeInForce_IMMEDIATE_OR_CANCEL;
                 else if (value == "gtd")
                     tif = FIX::TimeInForce_GOOD_TILL_DATE;
+                else if (value == "gtc")
+                    tif = FIX::TimeInForce_GOOD_TILL_CANCEL;
             }
             else if (key == "e")
             {
@@ -292,9 +306,13 @@ namespace TTFixTradeClient
             {
                 clOrdId = value;
             }
+            else if (key == "com")
+            {
+                clComment = value;
+            }
         }
 
-        SendNewOrderSingle(session, symbol, side, FIX::OrdType_LIMIT, qty, price, 0.0, sl, tp, tif, p_expTime, slippage, clOrdId);
+        SendNewOrderSingle(session, symbol, side, FIX::OrdType_LIMIT, qty, price, 0.0, sl, tp, tif, p_expTime, slippage, clOrdId, clComment);
     }
 
     void SendNewStopOrder(const FIX::SessionID& session, char side, const std::vector<std::string>& params)
@@ -309,6 +327,7 @@ namespace TTFixTradeClient
         std::tm expTime;
         std::tm* p_expTime = nullptr;
         std::string clOrdId;
+        std::string clComment;
 
         for (int i = 4; i < params.size(); i++)
         {
@@ -322,6 +341,8 @@ namespace TTFixTradeClient
                     tif = FIX::TimeInForce_IMMEDIATE_OR_CANCEL;
                 else if (value == "gtd")
                     tif = FIX::TimeInForce_GOOD_TILL_DATE;
+                else if (value == "gtc")
+                    tif = FIX::TimeInForce_GOOD_TILL_CANCEL;
             }
             else if (key == "e")
             {
@@ -345,9 +366,13 @@ namespace TTFixTradeClient
             {
                 clOrdId = value;
             }
+            else if (key == "com")
+            {
+                clComment = value;
+            }
         }
 
-        SendNewOrderSingle(session, symbol, FIX::OrdType_STOP, side, qty, 0.0, stopPrice, sl, tp, tif, p_expTime, slippage, clOrdId);
+        SendNewOrderSingle(session, symbol, FIX::OrdType_STOP, side, qty, 0.0, stopPrice, sl, tp, tif, p_expTime, slippage, clOrdId, clComment);
     }
 
     void FixTradeClient::run()
@@ -371,6 +396,10 @@ namespace TTFixTradeClient
                     std::istream_iterator<std::string> { issp },
                     std::istream_iterator<std::string> { }
                 };
+
+                if (params.size() == 0)
+                    continue;
+
                 std::string cmd = params[0];
 
                 if (cmd == "e")

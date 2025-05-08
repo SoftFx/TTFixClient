@@ -39,7 +39,7 @@ int _tmain(int argc, _TCHAR* argv[])
         FIX::SessionID sessionId("FIX.4.4", std::string("CLIENT_TRADE_") + id, "EXECUTOR");
 
         std::string serverAddress = "localhost";
-        std::string username = "200";
+        std::string username = "100";
         std::string password = "123qwe!";
 
         std::string deviceId = "123456789";
